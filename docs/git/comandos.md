@@ -22,6 +22,10 @@ git init
 git remote add origin [direccion_remota]
 git remote add origin https://github.com/cchura94/backend_laravel_vue_vite.git
 ```
-
+---
 ### Comandos comunes ()
-
+```
+git add .
+git commit -m "Nuevos cambios"
+git push origin master
+```

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,6 +49,7 @@ class AuthController extends Controller
         $usuario->save();
         
         // verificacion de cuenta por correo
+        event(new Registered($usuario));
 
         // generar una respuesta
         return response()->json(["mensaje" => "Usuario Registrado"], 201);
@@ -64,5 +66,31 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json(["message" => "Logout"]);
+    }
+
+    public function verify($user_id, Request $request){
+        if(!$request->hasValidSignature()){
+            return response()->json(["message" => "URL EXPIRADO"], 401);
+        }
+
+        $user = User::findOrFail($user_id);
+
+        if(!$user->hasVerifiedEmail()){
+            $user->markEmailAsVerified();
+        }
+
+        // enviar un mensaje en json que indique que el correo ha sido verificado
+        
+        return redirect()->to('/');
+    }
+
+    public function resend(Request $request){
+        if($request->user()->hasVerifiedEmail()){
+            return response()->json(["message" => "El Correo ya está verificado"], 400);
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return response()->json(["message" => "Se ha enviar un email de verificación"]);
     }
 }

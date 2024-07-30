@@ -4,10 +4,10 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "name": "juan",
-    "email": "juan@mail.com",
-    "password": "juan54321",
-    "c_password": "juan54321"
+    "name": "maria2",
+    "email": "maria2@mail.com",
+    "password": "maria54321",
+    "c_password": "maria54321"
 }
 
 ### Autenticación (login)
@@ -17,8 +17,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "cristian@mail.com",
-    "password": "cristian54321"
+    "email": "juan@mail.com",
+    "password": "juan54321"
 }
 
 ### Perfil
@@ -32,3 +32,8 @@ Authorization: Bearer 7|UJQDiU1rWEZSjRqLwONjowrm9cUsHUJbYPzQMkmN218119b3
 POST http://127.0.0.1:8000/api/v1/auth/logout
 Accept: application/json
 Authorization: Bearer 8|nM8QIXQNGJY6P9L1E4IA5p9jUXNP77BlzfUoC9Ij26aec0be
+
+### resent verification email
+GET http://127.0.0.1:8000/api/email/resend
+Accept: application/json
+Authorization: Bearer 12|gSADUVQK4G5019LDnnSJG8oWZFnxaWTOu4z3qleq390380ec

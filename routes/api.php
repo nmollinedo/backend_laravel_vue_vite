@@ -23,5 +23,7 @@ Route::prefix('/v1/auth')->group(function(){
 Route::post('reset-password', [ResetPasswordController::class, "resetPassword"]);
 Route::post('change-password', [ResetPasswordController::class, "changePassword"]);
 
+Route::get('email/verify/{id}', [AuthController::class, 'verify'])->name('verification.verify');
+Route::get('email/resend', [AuthController::class, "resend"])->name("verification.resend")->middleware('auth:sanctum');
 
 

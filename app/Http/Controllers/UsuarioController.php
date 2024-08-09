@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsuarioRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,10 +26,17 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UsuarioRequest $request)
     {
         // $nombre = "admin' or 1=1";// $request->name;
         // DB::insert("insert into users (name, email) values(?, ?)", [$nombre, $request->email]);
+        /*
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email|unique:users",
+            "password" => "required"
+        ]);
+        */
 
         $usuario = new User();
         $usuario->name = $request->name;
@@ -55,6 +63,13 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email|unique:users,email,$id",
+            "password" => "required"
+        ]);
+
         $usuario = User::find($id);
         $usuario->name = $request->name;
         $usuario->email = $request->email;

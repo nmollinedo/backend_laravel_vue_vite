@@ -1,33 +1,35 @@
 GET http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 2|bAfg4efwXcC9O1Scynqa28klUadt4xUBc7GgJoQRa6de4a0b
+Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
 
 ### guardar usuario
 
 POST http://127.0.0.1:8000/api/usuario
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer 2|bAfg4efwXcC9O1Scynqa28klUadt4xUBc7GgJoQRa6de4a0b
+Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
 
 {
-    "name": "pedro",
-    "email": "pedro@mail.com",
-    "password": "pedro54321"
+    "name": "ana",
+    "email": "ana@mail.com",
+    "password": "ana54321"
 }
 
 ### mostrar
 GET http://127.0.0.1:8000/api/usuario/3
 
 ### modificar
-PUT http://127.0.0.1:8000/api/usuario/3
- Accept: application/json
- Content-Type: application/json
+PUT http://127.0.0.1:8000/api/usuario/6
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
  
- {
-  "name": "pedro",
-  "email": "pedro2@mail.com",
-  "password": "pedro543211"
- }
+{
+    "name": "pedro modificado",
+    "email": "pedro2@mail.com",
+    "password": "pedro54321"
+}
 
 ### eliminar
 DELETE http://127.0.0.1:8000/api/usuario/3
+Accept: application/json
 

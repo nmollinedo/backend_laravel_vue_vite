@@ -1,5 +1,5 @@
 GET http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
+Authorization: Bearer 11|e5P0WcjuzWIHr1Wu2BI1s1qM8rYe3OD70kLnDS3Kf686e384
 
 ### guardar usuario
 

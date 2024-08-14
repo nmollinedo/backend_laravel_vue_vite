@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UsuarioController;
 
@@ -28,8 +29,12 @@ Route::get('email/verify/{id}', [AuthController::class, 'verify'])->name('verifi
 Route::get('email/resend', [AuthController::class, "resend"])->name("verification.resend")->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function(){
+
+    Route::post("/usuario/asignar-persona", [UsuarioController::class, "asignarPersona"]);
+
     // controlador de recursos (API)
     Route::apiResource("usuario", UsuarioController::class);
+    Route::apiResource("persona", PersonaController::class);
 
 });
 

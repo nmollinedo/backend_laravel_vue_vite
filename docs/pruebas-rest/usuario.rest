@@ -1,12 +1,11 @@
 GET http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 11|e5P0WcjuzWIHr1Wu2BI1s1qM8rYe3OD70kLnDS3Kf686e384
-
+Authorization: Bearer 10|U3YZdeaA9dDizfpBamrkbfclBxU4SMlWPYkN9OKp8ead85d4
 ### guardar usuario
 
 POST http://127.0.0.1:8000/api/usuario
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
+Authorization: Bearer 62|dAftzqujOqKW4m7250nUsycKFn3uBq25ISnMPCOk6663343e
 
 {
     "name": "ana",
@@ -15,7 +14,11 @@ Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
 }
 
 ### mostrar
-GET http://127.0.0.1:8000/api/usuario/3
+GET http://127.0.0.1:8000/api/usuario/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 62|dAftzqujOqKW4m7250nUsycKFn3uBq25ISnMPCOk6663343e
+
 
 ### modificar
 PUT http://127.0.0.1:8000/api/usuario/6
@@ -29,7 +32,111 @@ Authorization: Bearer 6|i7ePVHQMZoPxMXRHc3DmQu5ZNi5pGrWjivP5KBsc06a1ad6f
     "password": "pedro54321"
 }
 
+### Autenticación (login)
+
+POST http://127.0.0.1:8000/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "cristian@mail.com",
+    "password": "cristian54321"
+}
+
+### Salir
+POST http://127.0.0.1:8000/api/v1/auth/logout
+Accept: application/json
+Authorization: Bearer 8|nM8QIXQNGJY6P9L1E4IA5p9jUXNP77BlzfUoC9Ij26aec0be
+
+
 ### eliminar
 DELETE http://127.0.0.1:8000/api/usuario/3
 Accept: application/json
 
+### mostrar
+GET http://127.0.0.1:8000/api/entidad 
+
+
+### mostrar ejecutora
+GET http://127.0.0.1:8000/api/entidad/2 
+
+
+
+### transferencia
+GET http://127.0.0.1:8000/api/transferencia
+Accept: application/json
+Content-Type: application/json
+
+### guardar inversion
+
+POST http://127.0.0.1:8000/api/registrar-transferencia
+Accept: application/json
+Content-Type: application/json
+
+{ "nombre_tpp": "Nombre tpp",
+  "objeto_trasferencia": "OBJJJJ",
+  "localizacion_trasferencia": "loca",
+  "denominacion_convenio": "nombre or",
+  "fecha_inicio_estimada": "12/08/2024",
+  "fecha_fin_estimada": "12/08/2024",
+  "id_area": 1,
+  "entidad_operadora": "PLANI",
+  "prefijo_tpp": "TPP",
+  "numero_fijo": "0047",
+
+}
+
+
+### guardar inversion
+
+POST http://127.0.0.1:8000/api/registrar-transferencia
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nombre_tpp": "Nombre tpp",
+  "objeto": "Objeto tcambio",
+  "localizacion": "loca",
+  "denominacion_convenio": "nombre or",
+  "fecha_inicio_estimada": "12/08/2024",
+  "fecha_fin_estimada": "12/08/2024",
+  "id_area": 1,
+  "entidad_operadora": "PLANI",
+  "prefijo_tpp": "TPP",
+  "numero_fijo": "0047"
+}
+
+
+### eliminar trasferencia
+DELETE http://127.0.0.1:8000/api/transferencia/19
+Accept: application/json
+
+
+### buscar trasferencia
+GET  http://127.0.0.1:8000/api/transferencia/46
+Accept: application/json
+
+
+### buscar trasferencia
+GET  http://127.0.0.1:8000/api/area
+Accept: application/json
+
+
+### guardar actualizacion transferencia
+
+POST http://127.0.0.1:8000/api/registrar-transferencia
+Accept: application/json
+Content-Type: application/json
+
+{ "nombre_tpp": "Nombre tpp",
+  "objeto_trasferencia": "OBJJJJ",
+  "localizacion_trasferencia": "loca",
+  "denominacion_convenio": "nombre or",
+  "fecha_inicio_estimada": "12/08/2024",
+  "fecha_fin_estimada": "12/08/2024",
+  "id_area": 1,
+  "entidad_operadora": "PLANI",
+  "prefijo_tpp": "TPP",
+  "numero_fijo": "0047",
+
+}

@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EntidadController;
+use App\Http\Controllers\InversionController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\UsuarioController;
 
 Route::get('/user', function (Request $request) {
@@ -38,6 +44,20 @@ Route::middleware('auth:sanctum')->group(function(){
 
 });
 
+
+Route::get('/area',[AreaController::class,"funListar"]);
+Route::get('/entidad',[EntidadController::class,"funListar"]);
+Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
+Route::get('/plan',[PlanController::class,"funListarPlan"]);
+Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
+
+Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
+Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
+Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);
+Route::get('/modificacion-problematica/{id}',[TransferenciaController::class,"funModificarProblematica"]);
+Route::post("/registrar-transferencia", [TransferenciaController::class, "funGuardar"]);
+Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
 Route::get("/no-autorizado", function (){
     return response()->json(["message" => "No esta autorizado para ver esta pagina"], 401);
 })->name("login");
+

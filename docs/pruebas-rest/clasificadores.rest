@@ -1,0 +1,28 @@
+### plan
+GET http://127.0.0.1:8000/api/plan
+Accept: application/json
+Content-Type: application/json
+
+
+### programa
+GET http://127.0.0.1:8000/api/programa/1
+Accept: application/json
+Content-Type: application/json
+
+
+### modifocacion problematica
+POST   http://127.0.0.1:8000/api/modificar-transferencia/58
+Accept: application/json
+Content-Type: application/json
+
+{
+    "nombre_tpp": "pedro modificadoaaaaaaaaaaaaaaa",
+    "objeto": "transferencia modificado",
+    "localizacion": "localizacion modificado",
+    "denominacion_convenio": "nombre original modificadoooooooooooooooooooooooooo",
+    "fecha_inicio": "25/08/2024",
+    "fecha_termino": "28/08/2024",
+    "id_area": 1,
+    "entidad_operadora": "pedro54321",
+    "id": 58
+}

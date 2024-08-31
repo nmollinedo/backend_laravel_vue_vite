@@ -26,3 +26,43 @@ Content-Type: application/json
     "entidad_operadora": "pedro54321",
     "id": 58
 }
+
+### guardar problematica
+POST   http://127.0.0.1:8000/api/guardar-problematica/58
+Accept: application/json
+Content-Type: application/json
+
+{
+    "plan_id": 1,
+    "programa_id": 1,
+    "descripcion": "problematica"
+}
+
+
+### departamento
+GET http://127.0.0.1:8000/api/departamento
+Accept: application/json
+Content-Type: application/json
+
+
+### municipio
+GET http://127.0.0.1:8000/api/municipio
+Accept: application/json
+Content-Type: application/json
+
+
+### municipio
+GET http://127.0.0.1:8000/api/municipio/1
+Accept: application/json
+Content-Type: application/json
+
+
+### poblacion
+GET http://127.0.0.1:8000/api/poblacion
+Accept: application/json
+Content-Type: application/json
+
+### poblacion
+GET http://127.0.0.1:8000/api/poblacion/1
+Accept: application/json
+Content-Type: application/json

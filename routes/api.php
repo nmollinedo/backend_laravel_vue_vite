@@ -4,10 +4,13 @@ use App\Http\Controllers\AreaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EntidadController;
 use App\Http\Controllers\InversionController;
+use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PoblacionController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TransferenciaController;
@@ -51,10 +54,18 @@ Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
 Route::get('/plan',[PlanController::class,"funListarPlan"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
 
+Route::get('/departamento',[DepartamentoController::class,"funListarDepartamento"]);
+Route::get('/municipio',[MunicipioController::class,"funListarMunicipio"]);
+Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto"]); //funListarPoblacionMuni
+
+Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
+Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
+
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);
 Route::get('/modificacion-problematica/{id}',[TransferenciaController::class,"funModificarProblematica"]);
+Route::post('/guardar-problematica/{id}',[TransferenciaController::class,"funGuardarProblematica"]);
 Route::post("/registrar-transferencia", [TransferenciaController::class, "funGuardar"]);
 Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
 Route::get("/no-autorizado", function (){

@@ -108,6 +108,34 @@ public function funGuardar(Request $request)
 }
 
 
+public function funGuardarProblematica($id, Request $request)
+{
+    // Validar los datos
+    $validated = $request->validate([
+        'plan_id' => 'required|integer',
+        'programa_id' => 'required|integer',
+        'descripcion' => 'required|string|max:255',
+    ]);
+
+    // Asignar variables
+    $plan_id = $validated['plan_id'];
+    $programa_id = $validated['programa_id'];
+    $descripcion = $validated['descripcion'];
+
+    // Usar consultas preparadas para evitar inyección SQL
+    DB::table('transferencia.transferencias')
+        ->where('id', $id)
+        ->update([
+            'plan_id' => $plan_id,
+            'programa_id' => $programa_id,
+            'descripcion' => $descripcion,
+        ]);
+
+    // Respuesta JSON
+    return response()->json(["message" => "Datos guardados correctamente"]);
+}
+
+
 
   /**
      * Buscar transferencia por id .
@@ -115,7 +143,10 @@ public function funGuardar(Request $request)
     public function buscarTrasferencia(string $id)
     {
         $transferencia = DB::select("
-        select id, nombre_formal as nombre_tpp, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio,fecha_inicio, fecha_termino, area_id, entidad_operadora from transferencia.transferencias where transferencia.transferencias.id =$id");
+        select id, nombre_formal as nombre_tpp, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
+,fecha_inicio, fecha_termino, area_id, entidad_operadora,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
+,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio
+from transferencia.transferencias where transferencia.transferencias.id =$id");
         return response()->json($transferencia, 200);
     }
 
@@ -173,7 +204,7 @@ public function funGuardar(Request $request)
     }
 
        /**  Modificicar trasferencia problematica por id */
-       public function funModificarProblematica($id,Request $request){
+       /*public function funModificarProblematica($id,Request $request){
         $descripcion=$request->descripcion;
         
         $transferencia = DB::select("
@@ -182,7 +213,7 @@ public function funGuardar(Request $request)
          return response()->json(["message" => "Trasferencia modificada"]);
 
         
-    }
+    }*/
 
     public function funEliminar($id){
         $transferencia = DB::select("

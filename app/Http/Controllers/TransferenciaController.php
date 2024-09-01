@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 
 class TransferenciaController extends Controller
-{   
+{
 /**
      * @OA\Get(
      *     path="/api/inversion",
@@ -32,7 +32,7 @@ class TransferenciaController extends Controller
     }
     /*
     public function funGuardar(Request $request){
-                
+
         $nombre_formal = "$request->nombre_tpp";
         $objeto_trasferencia = "$request->objeto_transferencia";
         $localizacion_trasferencia = "$request->localizacion_trasferencia";
@@ -43,7 +43,7 @@ class TransferenciaController extends Controller
         $entidad_operadora = "$request->entidad_operadora";
         $prefijo_tpp = "TPP";
         $numero_fijo = "0047";
-       
+
         DB::select("SELECT public.insertar_trans(?,?,?,?,?,?,?,?,?,?)",[
             $nombre_formal,
             $objeto_trasferencia,
@@ -59,7 +59,7 @@ class TransferenciaController extends Controller
         return response()->json(["message" => "Usuario registrado correctamente"]);
 
     }
-*/  
+*/
 public function funGuardar(Request $request)
 {
     //dd($request->all());  // Esto imprimirá los datos recibidos y detendrá la ejecución
@@ -158,17 +158,18 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
          ");
          return response()->json(["message" => "Trasferencia eliminada"]);
 
-        
+
     }
 
       /**  Modificicar trasferencia por id */
       public function funModificarTransferencia($id,Request $request){
+        print_r($request->all());
         $validated = $request->validate([
             'nombre_tpp' => 'required|string|max:255',
             'objeto' => 'required|string|max:500',
             'localizacion' => 'required|string|max:255',
             'denominacion_convenio' => 'required|string|max:110',
-            'id_area' => 'required|integer',
+            'area_id' => 'required|integer',
             'entidad_operadora' => 'required|string|max:255',
         ]);
          // Asignar variables
@@ -176,11 +177,11 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
         $objeto_trasferencia = $validated['objeto'];
         $localizacion_trasferencia = $validated['localizacion'];
         $nombre_original = $validated['denominacion_convenio'];
-        $fecha_inicio = '27/08/2024';
-        $fecha_termino = '27/08/2024';
-        //$fecha_inicio = $request->fecha_inicio;
-        //$fecha_termino = $request->fecha_termino;
-        $area_influencia_id = $validated['id_area'];
+        // $fecha_inicio = '27/08/2024';
+        // $fecha_termino = '27/08/2024';
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_termino = $request->fecha_termino;
+        $area_influencia_id = $validated['area_id'];
         $entidad_operadora = $validated['entidad_operadora'];
         //$prefijo_tpp = "TPP";
         //$numero_fijo = "0047";
@@ -198,21 +199,21 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
             $entidad_operadora,
             $id
         ]);
-    
+
         return response()->json(["message" => "Trasferencia modificada"]);
-        
+
     }
 
        /**  Modificicar trasferencia problematica por id */
        /*public function funModificarProblematica($id,Request $request){
         $descripcion=$request->descripcion;
-        
+
         $transferencia = DB::select("
         update transferencia.transferencias  set descripcion = $descripcion where transferencias.transferencias.id = $id
          ");
          return response()->json(["message" => "Trasferencia modificada"]);
 
-        
+
     }*/
 
     public function funEliminar($id){

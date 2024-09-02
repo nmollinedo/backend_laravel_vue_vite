@@ -59,13 +59,14 @@ Route::get('/municipio',[MunicipioController::class,"funListarMunicipio"]);
 Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto"]); //funListarPoblacionMuni
 
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
-Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
+Route::get('/poblacion',[PoblacionController::class,"funListarPoblacionMuni"]);
 
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);
 Route::get('/modificacion-problematica/{id}',[TransferenciaController::class,"funModificarProblematica"]);
-Route::post('/guardar-problematica/{id}',[TransferenciaController::class,"funGuardarProblematica"]);
+Route::post('/guardar-problematica/{id}',[TransferenciaController::class,"funGuardarProblematica"]); 
+Route::post('/guardar-localizacion/{id}',[TransferenciaController::class,"funGuardarLocalizacion"]); 
 Route::post("/registrar-transferencia", [TransferenciaController::class, "funGuardar"]);
 Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
 Route::get("/no-autorizado", function (){

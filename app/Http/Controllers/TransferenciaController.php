@@ -134,6 +134,37 @@ public function funGuardarProblematica($id, Request $request)
     // Respuesta JSON
     return response()->json(["message" => "Datos guardados correctamente"]);
 }
+public function funGuardarLocalizacion($id, Request $request)
+{
+    // Validar los datos
+    $validated = $request->validate([
+        'departamento_id' => 'required|integer',
+        'municipio_id' => 'required|integer',
+        'poblacion_id' => 'required|integer',
+        'cobertura' => 'required|integer',
+        'poblacion' => 'required|integer',
+    ]);
+
+    // Asignar variables
+    $departamento_id = $validated['departamento_id'];
+    $municipio_id = $validated['municipio_id'];
+    $poblacion_id = $validated['poblacion_id'];
+    $cobertura = $validated['cobertura'];
+    $poblacion = $validated['poblacion'];
+    // Usar consultas preparadas para evitar inyección SQL
+    DB::table('transferencia.transferencias')
+        ->where('id', $id)
+        ->update([
+            'departamento_id' => $departamento_id,
+            'municipio_id' => $municipio_id,
+            'poblacion_id' => $poblacion_id,
+            'cobertura' => $cobertura,
+            'poblacion' => $poblacion,
+        ]);
+
+    // Respuesta JSON
+    return response()->json(["message" => "Datos guardados correctamente"]);
+}
 
 
 

@@ -16,7 +16,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "nombre_tpp": "pedro modificadoaaaaaaaaaaaaaaa",
+    "nombre_tpp": "pedroppppppppppppppppppppppppppppppppp",
     "objeto": "transferencia modificado",
     "localizacion": "localizacion modificado",
     "denominacion_convenio": "nombre original modificadoooooooooooooooooooooooooo",

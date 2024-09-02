@@ -56,10 +56,9 @@ Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
 
 Route::get('/departamento',[DepartamentoController::class,"funListarDepartamento"]);
 Route::get('/municipio',[MunicipioController::class,"funListarMunicipio"]);
-Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto"]); //funListarPoblacionMuni
-
+Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto"]); 
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
-Route::get('/poblacion',[PoblacionController::class,"funListarPoblacionMuni"]);
+Route::get('/poblacion1',[PoblacionController::class,"funListarPoblacionMuni"]);
 
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);

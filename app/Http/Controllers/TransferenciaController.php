@@ -176,7 +176,7 @@ public function funGuardarLocalizacion($id, Request $request)
         $transferencia = DB::select("
         select id, nombre_formal as nombre_tpp, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
 ,fecha_inicio, fecha_termino, area_id, entidad_operadora,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
-,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio
+,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion 
 from transferencia.transferencias where transferencia.transferencias.id =$id");
         return response()->json($transferencia, 200);
     }

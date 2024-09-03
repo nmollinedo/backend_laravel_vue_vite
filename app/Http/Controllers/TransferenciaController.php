@@ -71,7 +71,8 @@ public function funGuardar(Request $request)
         'localizacion' => 'required|string|max:255',
         'denominacion_convenio' => 'required|string|max:110',
         'id_area' => 'required|integer',
-        'entidad_operadora' => 'required|string|max:255',
+        'entidad_operadora_id' => 'required|integer',
+        'entidad_ejecutora' => 'required|string|max:255',
     ]);
 
     // Asignar variables
@@ -85,12 +86,13 @@ public function funGuardar(Request $request)
     $fecha_inicio_estimada = $request->fecha_inicio;
     $fecha_fin_estimada = $request->fecha_termino;
     $area_influencia_id = $validated['id_area'];
-    $entidad_operadora = $validated['entidad_operadora'];
+    $entidad_operadora_id = $validated['entidad_operadora_id'];
+    $entidad_ejecutora = $validated['entidad_ejecutora'];
     $prefijo_tpp = "TPP";
     $numero_fijo = "0047";
 
     // Llamar a la función almacenada
-    DB::statement("SELECT public.insertar_trans(?,?,?,?,?,?,?,?,?,?)", [
+    DB::statement("SELECT public.insertar_trans(?,?,?,?,?,?,?,?,?,?,?)", [
         $nombre_formal,
         $objeto_trasferencia,
         $localizacion_trasferencia,
@@ -98,7 +100,8 @@ public function funGuardar(Request $request)
         $fecha_inicio_estimada,
         $fecha_fin_estimada,
         $area_influencia_id,
-        $entidad_operadora,
+        $entidad_operadora_id,
+        $entidad_ejecutora,
         $prefijo_tpp,
         $numero_fijo
     ]);
@@ -175,8 +178,8 @@ public function funGuardarLocalizacion($id, Request $request)
     {
         $transferencia = DB::select("
         select id, nombre_formal as nombre_tpp, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
-,fecha_inicio, fecha_termino, area_id, entidad_operadora,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
-,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion 
+,fecha_inicio, fecha_termino, area_id, entidad_operadora_id,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
+,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion,entidad_ejecutora 
 from transferencia.transferencias where transferencia.transferencias.id =$id");
         return response()->json($transferencia, 200);
     }
@@ -201,7 +204,8 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
             'localizacion' => 'required|string|max:255',
             'denominacion_convenio' => 'required|string|max:110',
             'area_id' => 'required|integer',
-            'entidad_operadora' => 'required|string|max:255',
+            'entidad_operadora_id' => 'required|integer',
+            'entidad_ejecutora' => 'required|string|max:255',
         ]);
          // Asignar variables
         $nombre_formal = $validated['nombre_tpp'];
@@ -213,13 +217,14 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
         $fecha_inicio = $request->fecha_inicio;
         $fecha_termino = $request->fecha_termino;
         $area_influencia_id = $validated['area_id'];
-        $entidad_operadora = $validated['entidad_operadora'];
+        $entidad_operadora_id = $validated['entidad_operadora_id'];
+        $entidad_ejecutora = $validated['entidad_ejecutora'];
         //$prefijo_tpp = "TPP";
         //$numero_fijo = "0047";
         //$transferencia = DB::select("SELECT public.actualizar_trans('Nombre', 'ObjetoModificado', 'Localizacionf', 'Nombre Originalf', '26/08/2024', '26/08/2024', 1, 'asdasd', 58)");
         // return response()->json(["message" => "Trasferencia actualizada"]);
 
-         DB::statement("SELECT public.actualizar_trans(?,?,?,?,?,?,?,?,?)", [
+         DB::statement("SELECT public.actualizar_trans(?,?,?,?,?,?,?,?,?,?)", [
             $nombre_formal,
             $objeto_trasferencia,
             $localizacion_trasferencia,
@@ -227,7 +232,8 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
             $fecha_inicio,
             $fecha_termino,
             $area_influencia_id,
-            $entidad_operadora,
+            $entidad_operadora_id,
+            $entidad_ejecutora,
             $id
         ]);
 

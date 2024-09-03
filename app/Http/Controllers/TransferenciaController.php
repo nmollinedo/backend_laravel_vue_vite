@@ -117,7 +117,7 @@ public function funGuardarProblematica($id, Request $request)
     $validated = $request->validate([
         'plan_id' => 'required|integer',
         'programa_id' => 'required|integer',
-        'descripcion' => 'required|string|max:255',
+        'descripcion' => 'required|string',
     ]);
 
     // Asignar variables
@@ -144,7 +144,7 @@ public function funGuardarLocalizacion($id, Request $request)
         'departamento_id' => 'required|integer',
         'municipio_id' => 'required|integer',
         'poblacion_id' => 'required|integer',
-        'cobertura' => 'required|integer',
+  
         'poblacion' => 'required|integer',
     ]);
 
@@ -152,7 +152,7 @@ public function funGuardarLocalizacion($id, Request $request)
     $departamento_id = $validated['departamento_id'];
     $municipio_id = $validated['municipio_id'];
     $poblacion_id = $validated['poblacion_id'];
-    $cobertura = $validated['cobertura'];
+    $cobertura = 0;
     $poblacion = $validated['poblacion'];
     // Usar consultas preparadas para evitar inyección SQL
     DB::table('transferencia.transferencias')

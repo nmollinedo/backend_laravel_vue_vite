@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ### modifocacion problematica
-POST   http://127.0.0.1:8000/api/modificar-transferencia/58
+POST   http://127.0.0.1:8000/api/modificar-transferencia/73
 Accept: application/json
 Content-Type: application/json
 
@@ -22,8 +22,9 @@ Content-Type: application/json
     "denominacion_convenio": "nombre original modificadoooooooooooooooooooooooooo",
     "fecha_inicio": "25/08/2024",
     "fecha_termino": "28/08/2024",
-    "id_area": 1,
-    "entidad_operadora": "pedro54321",
+    "area_id": 1,
+    "entidad_operadora_id": 1,
+    "entidad_ejecutora": "MMMMMMM",
     "id": 58
 }
 

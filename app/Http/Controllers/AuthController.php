@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -23,12 +24,18 @@ class AuthController extends Controller
         }
         // obtener el usuario autenticado
         $usuario = $request->user();
+        $usuario_id=$usuario->id;
+
+        //$rol = DB::select('roles');
+
+        $entidad = DB::select("select e.cod_entidad,e.sigla,e.entidad from users u,entidad e where u.entidad_id = e.cod_entidad and u.id=$usuario_id");
         // generamos token
         $token = $usuario->createToken('Token auth')->plainTextToken;
         // respondemos
         return response()->json([
             "access_token" => $token,
-            "usuario" => $usuario            
+            "usuario" => $usuario,
+            "entidad" => $entidad            
         ], 201);
 
     }
@@ -58,7 +65,14 @@ class AuthController extends Controller
     public function funProfile(Request $request){
         // obtener el usuario autenticado
         $usuario = $request->user();
-
+        $usuario_id=$usuario->id;
+        $entidad = DB::select("select e.cod_entidad,e.sigla,e.entidad from users u,entidad e where u.entidad_id = e.cod_entidad and u.id=$usuario_id");
+        if (!empty($entidad)) {
+            $entidad = $entidad[0]; // como estamos usando select, accedemos al primer (y único) resultado
+        }
+    
+        // agregar los datos de la entidad al objeto usuario
+        $usuario->entidad = $entidad;
         return response()->json($usuario);
     }
 

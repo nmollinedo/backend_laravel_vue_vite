@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
     "name": "cristian",
-    "email": "cristian@mail.com",
+    "usuario": "cristian",
     "password": "cristian54321",
     "c_password": "cristian54321"
 }
@@ -17,15 +17,15 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "cristian@mail.com",
-    "password": "cristian54321"
+    "email": "admin@mail.com",
+    "password": "admin54321"
 }
 
 ### Perfil
 
 GET http://127.0.0.1:8000/api/v1/auth/profile
 Accept: application/json
-Authorization: Bearer 1|WmZiVt3ykfoiWho0gqkvbyDPoHy89iUPQloa63WKf8d01108
+Authorization: Bearer 102|dwXwtseNkjKlytSS4wxHAHE6bxxRXfUqrKCofF5Oa98c147c
 
 
 ### Salir

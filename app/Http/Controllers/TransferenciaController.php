@@ -25,7 +25,10 @@ class TransferenciaController extends Controller
 
     public function funListarTransferencia(){
         $transferencia = DB::select("
-        SELECT * from transferencia.transferencias as tra where tra.estado_id=1 order by id asc");
+        SELECT id, nombre_formal as nombre_tpp,nombre_formal, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
+,fecha_inicio, fecha_termino, area_id, entidad_operadora_id,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
+,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion,entidad_ejecutora, (select ei.estado_inversion from clasificadores.estado_inversion ei where ei.id = estado_inversion_id) as estado   
+        from transferencia.transferencias as tra where tra.estado_id=1 order by id asc");
         return response()->json($transferencia, 200);
 
 

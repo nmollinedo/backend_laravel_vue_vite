@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DictamenController;
 use App\Http\Controllers\EntidadController;
 use App\Http\Controllers\InversionController;
 use App\Http\Controllers\MunicipioController;
@@ -60,6 +61,7 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
+Route::get('/dictamen/{id}',[DictamenController::class,"funListarDictamen"]);
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);

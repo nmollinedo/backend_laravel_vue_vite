@@ -61,7 +61,8 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
-Route::get('/dictamen/{id}',[DictamenController::class,"funListarDictamen"]);
+Route::get('/dictamen/{id}',[DictamenController::class,"funListarFormulario"]);
+Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarDictamen"]); 
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);

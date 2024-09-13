@@ -85,3 +85,23 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/api/poblacion/1
 Accept: application/json
 Content-Type: application/json
+
+
+
+### listar formulario
+GET http://127.0.0.1:8000/api/dictamen/68
+Accept: application/json
+Content-Type: application/json
+
+### guardar formulario
+POST  http://127.0.0.1:8000/api/guardar-dictamen/71
+Accept: application/json
+Content-Type: application/json
+
+{
+    "fecha_dictamen": "24/09/2024",
+    "fecha_inicio_etapa": "24/09/2024",
+    "fecha_termino_etapa": "24/09/2024",
+    "tipo_dictamen": "bbbbbb",
+ 
+}

@@ -29,8 +29,19 @@ class DictamenController extends Controller
      *      )
      * )
      */
-    public function funListarDictamen($id){
+    public function funListarFormulario($id){
         $producto = DB::select("select * from transferencia.dictamenes where transferencia_id=$id");
+        return response()->json($producto, 200);
+        /*return response()->json([
+            "status" => true,
+            "message" => "information",
+            "data" => $producto
+        ]);*/
+
+    }
+
+    public function funListarDictamenRegistro($id){
+        $producto = DB::select("select * from transferencia.dictamenes_registros where transferencia_id=$id");
         return response()->json($producto, 200);
         /*return response()->json([
             "status" => true,
@@ -51,10 +62,39 @@ class DictamenController extends Controller
 
     }
 
-    public function funGuardar(Request $request){
-        $sigla = $request->sigla;
-        $entidad = $request->entidad;
-        DB::insert('insert into entidad(cod_entidad,sigla,entidad)values(?,?,?)',[$sigla,$entidad]);
+    public function funGuardarDictamen($id, Request $request)
+    {
+        $fecha_dictamen = $request->fecha_dictamen;
+        $fecha_inicio_etapa = $request->fecha_inicio_etapa;
+        $fecha_termino_etapa = $request->fecha_termino_etapa;
+        $tipo_dictamen = $request->tipo_dictamen;
+    
+        DB::insert("
+            INSERT INTO transferencia.dictamenes (
+                id, transferencia_id, ear_ee_id, etapa_id, tipo_dictamen_id, 
+                fecha_dictamen, tipo_cambio_costos_id, tipo_justificacion_id, justificacion, moneda_id, 
+                gestion_registro, informe_tecnico, informe_tecnico_fecha, informe_legal, informe_legal_fecha, 
+                resolucion, resolucion_fecha, mae, mae_cargo, mae_ci, mae_documento_designacion, 
+                responsable, responsable_ci, responsable_cargo, responsable_unidad, 
+                proyecto_fecha_inicio, proyecto_fecha_fin, etapa_fecha_inicio, etapa_fecha_fin, 
+                usuario_id, fecha_registro, usuario_modificacion_id, fecha_modificacion, 
+                cierre_entidad, usuario_cierre_id, fecha_cierre_dictamen, con_archivo, ruta_archivo, 
+                usuario_archivo_id, fecha_archivo, version_id
+            ) VALUES (
+                0, ?, 1, 1, ?, ?, 1, 1, 'justi', 1, 2024, 'informe', '12/09/2024', 'legal', '12/09/2024', 
+                'resolucion', '13/09/2024', 'Mae', 'Mae Cargo', 'maeci', 'maedocDesig', 'responsable', 
+                'responsableCi', 'resp cargo', 'resp unidad', '15/09/2024', '30/09/2024', ?, ?, 1, '12/09/2024', 
+                0, '12/09/2024', 1, 1, '12/09/2024', 0, 'ruta', 0, '12/09/2024', 0
+            )
+        ", [
+            $id,
+            $tipo_dictamen,
+            $fecha_dictamen,
+            $fecha_inicio_etapa,
+            $fecha_termino_etapa
+        ]);
+            // Respuesta JSON
+    return response()->json(["message" => "Datos guardados correctamente"]);
     }
 
     public function funMostrar($identificador){

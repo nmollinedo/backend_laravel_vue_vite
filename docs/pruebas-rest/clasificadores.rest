@@ -86,22 +86,34 @@ GET http://127.0.0.1:8000/api/poblacion/1
 Accept: application/json
 Content-Type: application/json
 
+### listar transferencia
+GET http://127.0.0.1:8000/api/transferencia
+Accept: application/json
+Content-Type: application/json
 
 
 ### listar formulario
-GET http://127.0.0.1:8000/api/dictamen/68
+GET http://127.0.0.1:8000/api/dictamen-listar/57
+Accept: application/json
+Content-Type: application/json
+
+### listar formulario
+GET http://127.0.0.1:8000/api/dictamen-eliminar/25
 Accept: application/json
 Content-Type: application/json
 
 ### guardar formulario
-POST  http://127.0.0.1:8000/api/guardar-dictamen/71
+POST  http://127.0.0.1:8000/api/guardar-dictamen/68
 Accept: application/json
 Content-Type: application/json
 
 {
-    "fecha_dictamen": "24/09/2024",
-    "fecha_inicio_etapa": "24/09/2024",
-    "fecha_termino_etapa": "24/09/2024",
-    "tipo_dictamen": "bbbbbb",
+    "fecha_registro": "24/09/2024",
+    "fecha_inicio": "24/09/2024",
+    "fecha_termino": "24/09/2024",
+    "tipo_dictamen_id": 1,
+    "pregunta_1": 1,
+    "pregunta_2": 1,  
+    "pregunta_3": 1,  
  
 }

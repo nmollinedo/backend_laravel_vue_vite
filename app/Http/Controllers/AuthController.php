@@ -28,14 +28,28 @@ class AuthController extends Controller
 
         //$rol = DB::select('roles');
 
-        $entidad = DB::select("select e.cod_entidad,e.sigla,e.entidad from users u,entidad e where u.entidad_id = e.cod_entidad and u.id=$usuario_id");
+        $entidad = DB::select("select e.id,e.sigla,e.entidad,e.codigo_presupuestario from users u,entidad e where u.entidad_id = e.id and u.id=$usuario_id");
+        $rol = DB::select("select u.usuario usuario,r.id, r.rol,r.descripcion,s.sigla,o.nombre 
+                                from rbac.usuarios u, rbac.personas p, rbac.roles r ,rbac.sistemas s, rbac.opciones o, 
+                                            rbac.sistemas_roles sr , rbac.sistemas_usuarios_roles sur, rbac.sistemas_roles_opciones sro 
+                                where sur.rol_id = sro.rol_id 
+                                and sur.sistema_id = sro.sistema_id 
+                                and sur.usuario_id  = u.id 
+                                and u.persona_id = p.id 
+                                and sro.rol_id = r.id 
+                                and sro.rol_id = sr.rol_id 
+                                and sro.sistema_id = sr.sistema_id 
+                                and sr.sistema_id =s.id 
+                                and sro.opcion_id =o.id 
+                                and u.id=$usuario_id");
         // generamos token
         $token = $usuario->createToken('Token auth')->plainTextToken;
         // respondemos
         return response()->json([
             "access_token" => $token,
             "usuario" => $usuario,
-            "entidad" => $entidad            
+            "entidad" => $entidad,
+            "rol" => $rol            
         ], 201);
 
     }
@@ -66,13 +80,31 @@ class AuthController extends Controller
         // obtener el usuario autenticado
         $usuario = $request->user();
         $usuario_id=$usuario->id;
-        $entidad = DB::select("select e.cod_entidad,e.sigla,e.entidad from users u,entidad e where u.entidad_id = e.cod_entidad and u.id=$usuario_id");
+        $entidad = DB::select("select e.id,e.sigla,e.entidad,e.codigo_presupuestario from users u,entidad e where u.entidad_id = e.id and u.id=$usuario_id");
         if (!empty($entidad)) {
             $entidad = $entidad[0]; // como estamos usando select, accedemos al primer (y único) resultado
+        }
+
+        $rol = DB::select("select u.usuario usuario,r.id, r.rol,r.descripcion,s.sigla,o.nombre 
+	from rbac.usuarios u, rbac.personas p, rbac.roles r ,rbac.sistemas s, rbac.opciones o, 
+				  rbac.sistemas_roles sr , rbac.sistemas_usuarios_roles sur, rbac.sistemas_roles_opciones sro 
+	where sur.rol_id = sro.rol_id 
+	  and sur.sistema_id = sro.sistema_id 
+	  and sur.usuario_id  = u.id 
+	  and u.persona_id = p.id 
+	  and sro.rol_id = r.id 
+	  and sro.rol_id = sr.rol_id 
+	  and sro.sistema_id = sr.sistema_id 
+	  and sr.sistema_id =s.id 
+	  and sro.opcion_id =o.id 
+	  and u.id=2");
+        if (!empty($rol)) {
+            $rol = $rol[0]; // como estamos usando select, accedemos al primer (y único) resultado
         }
     
         // agregar los datos de la entidad al objeto usuario
         $usuario->entidad = $entidad;
+        $usuario->rol = $rol;
         return response()->json($usuario);
     }
 

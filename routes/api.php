@@ -14,6 +14,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PoblacionController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\TipoDictamenController;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\UsuarioController;
 
@@ -61,9 +62,12 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
+Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]);
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
+Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
-Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]); 
+Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);  
+Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen
 
 Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);

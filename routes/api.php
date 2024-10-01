@@ -67,11 +67,13 @@ Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormular
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);  
-Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen
+Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   
 
-Route::get('/transferencia',[TransferenciaController::class,"funListarTransferencia"]);
-Route::delete('/transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
+Route::get('/listar-transferencia/{id}',[TransferenciaController::class,"funListarTransferencia"]);
+Route::delete('/eliminar-transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);
+Route::get('/activar-cierre/{id}',[TransferenciaController::class,"funActivarCierre"]);
+Route::get('/cierre-formulario/{id}',[TransferenciaController::class,"funCierreFormulario"]);
 Route::get('/modificacion-problematica/{id}',[TransferenciaController::class,"funModificarProblematica"]);
 Route::post('/guardar-problematica/{id}',[TransferenciaController::class,"funGuardarProblematica"]); 
 Route::post('/guardar-localizacion/{id}',[TransferenciaController::class,"funGuardarLocalizacion"]); 

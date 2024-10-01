@@ -30,7 +30,18 @@ class TipoDictamenController extends Controller
      * )
      */
     public function funListarTipoDictamen(){
-        $tipoDictamen = DB::select('select * from clasificadores.tipo_dictamen where vigente=1');
+        $tipoDictamen = DB::select('select * from clasificadores.tipo_dictamen where vigente=1 and id=1');
+        return response()->json($tipoDictamen, 200);
+        /*return response()->json([
+            "status" => true,
+            "message" => "information",
+            "data" => $producto
+        ]);*/
+
+    }
+
+    public function funListarTipoDictamen2(){
+        $tipoDictamen = DB::select('select * from clasificadores.tipo_dictamen where vigente=1 and id<>1');
         return response()->json($tipoDictamen, 200);
         /*return response()->json([
             "status" => true,

@@ -23,13 +23,13 @@ class TransferenciaController extends Controller
      * )
      */
 
-    public function funListarTransferencia(){
+    public function funListarTransferencia($id){
         $transferencia = DB::select("
             SELECT id, nombre_formal as nombre_tpp,nombre_formal, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
 ,fecha_inicio, fecha_termino, area_id, entidad_operadora_id,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
 ,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion,entidad_ejecutora, (select ei.estado_inversion from clasificadores.estado_inversion ei where ei.id = estado_id) as estado, estado_id,
-(select i.nombre from clasificadores.instituciones i where i.id = entidad_operadora_id) as entidad 
-        from transferencia.transferencias as tra where tra.estado_id=1 order by id asc");
+(select i.nombre from clasificadores.instituciones i where i.id = entidad_operadora_id) as entidad, bloqueo_proyecto 
+        from transferencia.transferencias as tra where tra.entidad_operadora_id=$id and tra.estado_id IN (1,2) order by id desc");
         return response()->json($transferencia, 200);
 
 
@@ -262,5 +262,23 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
         update transferencia.transferencias  set estado_id = 0 where transferencia.transferencias.id = $id
          ");
          return response()->json(["message" => "Trasferencia eliminada"]);
+    }
+
+    public function funActivarCierre($id){
+        $transferencia = DB::select("
+        update transferencia.transferencias  set bloqueo_proyecto = 0 where transferencia.transferencias.id = $id
+         ");
+         return response()->json(["message" => "Trasferencia Cierre activado"]);
+    }
+
+    public function funCierreFormulario($id){
+        $transferencia = DB::select("
+        update transferencia.transferencias  set estado_id = 2 where transferencia.transferencias.id = $id;
+                 ");
+         $transferencia = DB::select("
+         
+         update transferencia.dictamenes  set cierre_entidad = 1 where transferencia.dictamenes.transferencia_id = $id;
+          ");
+         return response()->json(["message" => "Transferencia Cierre formulario"]);
     }
 }

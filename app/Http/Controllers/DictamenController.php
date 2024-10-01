@@ -360,7 +360,7 @@ class DictamenController extends Controller
      1::integer, 
      1::integer, 
      1::integer,
-     '01/01/1900'::date,
+     ?::date,
      1::integer,
      1::integer,
      'tareas'::varchar,
@@ -399,7 +399,7 @@ class DictamenController extends Controller
      'M101'::varchar)
  ", [
      $dictamen_id,  // Usar el dictamen_id recuperado
-   //  $fecha_dictamen,
+     $fecha_dictamen,
      $mae,
      $mae_cargo,
      $mae_ci,

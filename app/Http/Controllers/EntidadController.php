@@ -41,7 +41,9 @@ class EntidadController extends Controller
     }
     
     public function funListarEjecutora($id){
-        $entidad = DB::select("select * from clasificadores.instituciones where institucion_padre_id=$id");
+        $entidad = DB::select("select * from clasificadores.instituciones where institucion_padre_id=$id and estado_id=1
+union
+select * from clasificadores.instituciones  where id=$id");
         return response()->json($entidad, 200);
         /*return response()->json([
             "status" => true,

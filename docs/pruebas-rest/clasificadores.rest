@@ -54,7 +54,15 @@ Content-Type: application/json
 }
 
 
+### Activar cierre
+GET http://127.0.0.1:8000/api/activar-cierre/89
+Accept: application/json
+Content-Type: application/json
 
+### cierre formulario
+GET http://127.0.0.1:8000/api/cierre-formulario/93
+Accept: application/json
+Content-Type: application/json
 
 
 
@@ -87,18 +95,29 @@ Accept: application/json
 Content-Type: application/json
 
 ### listar transferencia
-GET http://127.0.0.1:8000/api/transferencia
+GET http://127.0.0.1:8000/api/listar-transferencia/2
 Accept: application/json
 Content-Type: application/json
 
 
 ### listar formulario
-GET http://127.0.0.1:8000/api/dictamen-listar/57
+GET http://127.0.0.1:8000/api/dictamen-listar/94
 Accept: application/json
 Content-Type: application/json
 
 ### listar formulario
 GET http://127.0.0.1:8000/api/dictamen-eliminar/25
+Accept: application/json
+Content-Type: application/json
+
+
+### mostrar formulario
+GET http://127.0.0.1:8000/api/dictamen-mostrar/7
+Accept: application/json
+Content-Type: application/json
+
+### listar tipo dictamen
+GET http://127.0.0.1:8000/api/listar-tipo
 Accept: application/json
 Content-Type: application/json
 
@@ -111,9 +130,62 @@ Content-Type: application/json
     "fecha_registro": "24/09/2024",
     "fecha_inicio": "24/09/2024",
     "fecha_termino": "24/09/2024",
-    "tipo_dictamen_id": 1,
-    "pregunta_1": 1,
-    "pregunta_2": 1,  
-    "pregunta_3": 1,  
- 
+    "etapa": 1,
+    "pregunta_1": true,
+    "pregunta_2": true,  
+    "pregunta_3": true,
+    "respaldo_pregunta_3": "pregunta 3",
+    "fecha_pregunta_3": "24/09/2024",
+    "pregunta_4": true,
+    "respaldo_pregunta_4": "pregunta 4",
+    "fecha_pregunta_4": "24/09/2024",
+    "pregunta_5": true,
+    "respaldo_pregunta_5": "pregunta 5",
+    "fecha_pregunta_5": "24/09/2024",
+    "pregunta_6": true,
+    "respaldo_pregunta_6": "pregunta 6",
+    "fecha_pregunta_6": "24/09/2024",
+    "mae": "nombre mae",
+    "mae_cargo": "cargo mae",
+    "mae_ci": "ci mae",
+    "mae_documento_designacion":"doc designacion",
+    "responsable": "Responsable",
+    "responsable_ci": "4545545",
+    "responsable_cargo": "responsable cargo",
+    "responsable_unidad": "Responsable unidad"
+}
+
+
+### modificiar formulario
+POST  http://127.0.0.1:8000/api/modificar-dictamen/94
+Accept: application/json
+Content-Type: application/json
+
+{
+    "fecha_registro": "10/10/2024",
+    "fecha_inicio": "24/09/2024",
+    "fecha_termino": "24/09/2024",
+    "etapa": 1,
+    "pregunta_1": true,
+    "pregunta_2": true,  
+    "pregunta_3": true,
+    "respaldo_pregunta_3": "AAAAAAAAA",
+    "fecha_pregunta_3": "24/09/2024",
+    "pregunta_4": true,
+    "respaldo_pregunta_4": "BBBBBBB",
+    "fecha_pregunta_4": "24/09/2024",
+    "pregunta_5": true,
+    "respaldo_pregunta_5": "pregunta 55555",
+    "fecha_pregunta_5": "24/09/2024",
+    "pregunta_6": true,
+    "respaldo_pregunta_6": "pregunta 66666",
+    "fecha_pregunta_6": "24/09/2024",
+    "mae": "nombre mae",
+    "mae_cargo": "cargo mae",
+    "mae_ci": "111111111",
+    "mae_documento_designacion":"mae",
+    "responsable": "Responsable",
+    "responsable_ci": "4545545",
+    "responsable_cargo": "responsable cargo",
+    "responsable_unidad": "Responsable unidad"
 }

@@ -413,6 +413,7 @@ class DictamenController extends Controller
  ]);
     return response()->json(["message" => "Formulario modificado"]);
     }
+    
     public function funEliminarFormulario($id)
         {
             $formulario = DB::select("
@@ -420,5 +421,21 @@ class DictamenController extends Controller
              ");
              return response()->json(["message" => "Formulario eliminado"]);
         }
+
+
+        public function funEliminarCierre($id,Request $request)
+        {   $transferencia_id = $request->transferencia_id;
+            $valor=$transferencia_id;
+            $formulario = DB::select("
+            delete from transferencia.dictamenes  where transferencia.dictamenes.dictamen_id = $id
+             ");
+             $formulario = DB::select("
+            delete from transferencia.dictamenes_registros  where transferencia.dictamenes_registros.id = $id
+             ");
+             $formulario = DB::select("
+            update transferencia.transferencias  set estado_id = 1 where transferencia.transferencias.id = $valor
+             ");
+             return response()->json(["message" => "Cierre Formulario eliminado"]);
+        }    
     
 }

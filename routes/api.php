@@ -67,7 +67,8 @@ Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormular
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);  
-Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   
+Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   funEliminarCierre
+Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierre"]);
 
 Route::get('/listar-transferencia/{id}',[TransferenciaController::class,"funListarTransferencia"]);
 Route::delete('/eliminar-transferencia/{id}',[TransferenciaController::class,"funEliminar"]);

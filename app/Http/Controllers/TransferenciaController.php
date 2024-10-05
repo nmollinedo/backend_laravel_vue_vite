@@ -24,12 +24,47 @@ class TransferenciaController extends Controller
      */
 
     public function funListarTransferencia($id){
-        $transferencia = DB::select("
-            SELECT id, nombre_formal as nombre_tpp,nombre_formal, codigo_tpp_formato as codigo_tpp, objeto_trasferencia as objeto, localizacion_trasferencia as localizacion, nombre_original as denominacion_convenio
-,fecha_inicio, fecha_termino, area_id, entidad_operadora_id,descripcion, (select p.descrip_plan from clasificadores.planes p where p.id=plan_id) as plan,(select p2.descrip_programa from clasificadores.programas p2  where p2.id=programa_id ) as programa
-,plan_id,programa_id, departamento_id as departamento, municipio_id as municipio,poblacion_id,cobertura,poblacion,entidad_ejecutora, (select ei.estado_inversion from clasificadores.estado_inversion ei where ei.id = estado_id) as estado, estado_id,
-(select i.nombre from clasificadores.instituciones i where i.id = entidad_operadora_id) as entidad, bloqueo_proyecto 
-        from transferencia.transferencias as tra where tra.entidad_operadora_id=$id and tra.estado_id IN (1,2) order by id desc");
+        $transferencia = DB::select("SELECT 
+    tra.id, 
+    tra.nombre_formal AS nombre_tpp, 
+    tra.nombre_formal, 
+    tra.codigo_tpp_formato AS codigo_tpp, 
+    tra.objeto_trasferencia AS objeto, 
+    tra.localizacion_trasferencia AS localizacion, 
+    tra.nombre_original AS denominacion_convenio, 
+    tra.fecha_inicio, 
+    tra.fecha_termino, 
+    tra.area_id, 
+    tra.entidad_operadora_id, 
+    tra.descripcion, 
+    p.descrip_plan AS plan, 
+    p2.descrip_programa AS programa, 
+    tra.plan_id, 
+    tra.programa_id, 
+    tra.departamento_id AS departamento, 
+    tra.municipio_id AS municipio, 
+    tra.poblacion_id, 
+    tra.cobertura, 
+    tra.poblacion, 
+    tra.entidad_ejecutora, 
+    ei.estado_inversion AS estado, 
+    tra.estado_id, 
+    i.nombre AS entidad, 
+    tra.bloqueo_proyecto 
+FROM 
+    transferencia.transferencias AS tra 
+    LEFT JOIN clasificadores.planes p ON p.id = tra.plan_id 
+    LEFT JOIN clasificadores.programas p2 ON p2.id = tra.programa_id 
+    LEFT JOIN clasificadores.estado_inversion ei ON ei.id = tra.estado_id 
+    LEFT JOIN transferencia.rel_transferencia_ear_ee rtee ON rtee.transferencia_id = tra.id 
+    LEFT JOIN transferencia.rel_ear_ee ree ON rtee.ear_ee_id = ree.id AND ree.vigente = 1 
+    LEFT JOIN clasificadores.instituciones i ON i.id = ree.ee_id
+WHERE 
+    ree.ear_id = $id
+    AND tra.estado_id IN (1, 2) 
+ORDER BY 
+    tra.id DESC; 
+");
         return response()->json($transferencia, 200);
 
 
@@ -70,10 +105,10 @@ public function funGuardar(Request $request)
 
     // Validar los datos
     $validated = $request->validate([
-        'nombre_tpp' => 'required|string|max:255',
-        'objeto' => 'required|string|max:500',
-        'localizacion' => 'required|string|max:255',
-        'denominacion_convenio' => 'required|string|max:110',
+        'nombre_tpp' => 'required|string|max:110',
+        'objeto' => 'required|string',
+        'localizacion' => 'required|string',
+        'denominacion_convenio' => 'required|string|max:500',
         'id_area' => 'required|integer',
         'entidad_operadora_id' => 'required|integer',
         
@@ -96,7 +131,7 @@ public function funGuardar(Request $request)
     $numero_fijo = "0047";
 
     // Llamar a la función almacenada
-    DB::statement("SELECT public.insertar_trans(?,?,?,?,?,?,?,?,?,?,?)", [
+    DB::statement("SELECT transferencia.insertar_transferencia(?,?,?,?,?,?,?,?,?,?,?)", [
         $nombre_formal,
         $objeto_trasferencia,
         $localizacion_trasferencia,
@@ -228,7 +263,7 @@ from transferencia.transferencias where transferencia.transferencias.id =$id");
         //$transferencia = DB::select("SELECT public.actualizar_trans('Nombre', 'ObjetoModificado', 'Localizacionf', 'Nombre Originalf', '26/08/2024', '26/08/2024', 1, 'asdasd', 58)");
         // return response()->json(["message" => "Trasferencia actualizada"]);
 
-         DB::statement("SELECT public.actualizar_trans(?,?,?,?,?,?,?,?,?,?)", [
+         DB::statement("SELECT transferencia.actualizar_transferencia(?,?,?,?,?,?,?,?,?,?)", [
             $nombre_formal,
             $objeto_trasferencia,
             $localizacion_trasferencia,

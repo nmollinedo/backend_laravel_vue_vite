@@ -62,7 +62,8 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
-Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]);
+Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2
+Route::get('/listar-tipo2',[TipoDictamenController::class,"funListarTipoDictamen2"]);
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);

@@ -41,7 +41,7 @@ class TipoDictamenController extends Controller
     }
 
     public function funListarTipoDictamen2(){
-        $tipoDictamen = DB::select('select * from clasificadores.tipo_dictamen where vigente=1 and id<>1');
+        $tipoDictamen = DB::select('select * from clasificadores.tipo_dictamen where vigente=1 and id=4');
         return response()->json($tipoDictamen, 200);
         /*return response()->json([
             "status" => true,

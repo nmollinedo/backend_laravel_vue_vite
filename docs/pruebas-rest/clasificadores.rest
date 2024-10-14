@@ -64,7 +64,23 @@ GET http://127.0.0.1:8000/api/cierre-formulario/93
 Accept: application/json
 Content-Type: application/json
 
+### eliminar cierre
+POST   http://127.0.0.1:8000/api/eliminar-cierre/115
+Accept: application/json
+Content-Type: application/json
 
+{
+    "transferencia_id": 104
+}
+
+### filtrar trasferencia
+GET    http://127.0.0.1:8000/api/filtrar-transferencia/2
+Accept: application/json
+Content-Type: application/json
+
+{
+    "estado_id": 2
+}
 
 ### departamento
 GET http://127.0.0.1:8000/api/departamento
@@ -106,7 +122,7 @@ Accept: application/json
 Content-Type: application/json
 
 ### listar formulario
-GET http://127.0.0.1:8000/api/dictamen-eliminar/25
+DELETE http://127.0.0.1:8000/api/dictamen-eliminar/135
 Accept: application/json
 Content-Type: application/json
 
@@ -118,6 +134,11 @@ Content-Type: application/json
 
 ### listar tipo dictamen
 GET http://127.0.0.1:8000/api/listar-tipo
+Accept: application/json
+Content-Type: application/json
+
+### listar tipo dictamen
+GET http://127.0.0.1:8000/api/listar-tipo2
 Accept: application/json
 Content-Type: application/json
 
@@ -165,6 +186,40 @@ Content-Type: application/json
     "fecha_registro": "10/10/2024",
     "fecha_inicio": "24/09/2024",
     "fecha_termino": "24/09/2024",
+    "etapa": 1,
+    "pregunta_1": true,
+    "pregunta_2": true,  
+    "pregunta_3": true,
+    "respaldo_pregunta_3": "AAAAAAAAA",
+    "fecha_pregunta_3": "24/09/2024",
+    "pregunta_4": true,
+    "respaldo_pregunta_4": "BBBBBBB",
+    "fecha_pregunta_4": "24/09/2024",
+    "pregunta_5": true,
+    "respaldo_pregunta_5": "pregunta 55555",
+    "fecha_pregunta_5": "24/09/2024",
+    "pregunta_6": true,
+    "respaldo_pregunta_6": "pregunta 66666",
+    "fecha_pregunta_6": "24/09/2024",
+    "mae": "nombre mae",
+    "mae_cargo": "cargo mae",
+    "mae_ci": "111111111",
+    "mae_documento_designacion":"mae",
+    "responsable": "Responsable",
+    "responsable_ci": "4545545",
+    "responsable_cargo": "responsable cargo",
+    "responsable_unidad": "Responsable unidad"
+}
+
+### modificiar formulario
+POST  http://127.0.0.1:8000/api/modificar-dictamen-fecha/132
+Accept: application/json
+Content-Type: application/json
+
+{
+    "fecha_registro": "10/10/2024",
+    "fecha_inicio": "10/09/2024",
+    "fecha_termino": "10/12/2024",
     "etapa": 1,
     "pregunta_1": true,
     "pregunta_2": true,  

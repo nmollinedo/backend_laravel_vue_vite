@@ -97,7 +97,7 @@ class AuthController extends Controller
 	  and sro.sistema_id = sr.sistema_id 
 	  and sr.sistema_id =s.id 
 	  and sro.opcion_id =o.id 
-	  and u.id=2");
+	  and u.id=$usuario_id");
         if (!empty($rol)) {
             $rol = $rol[0]; // como estamos usando select, accedemos al primer (y único) resultado
         }

@@ -259,7 +259,7 @@ class DictamenController extends Controller
     }
 
     public function funMostrarFormulario($id){
-        $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and dr.id =$id");
+        $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and dr.transferencia_id =$id");
         return response()->json($formulario, 200);
     }
     public function funGuardarModificacion($id,Request $request){

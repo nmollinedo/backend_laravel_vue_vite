@@ -4,6 +4,7 @@ use App\Http\Controllers\AreaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComponenteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DictamenController;
 use App\Http\Controllers\EntidadController;
@@ -55,6 +56,7 @@ Route::get('/entidad',[EntidadController::class,"funListar"]);
 Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
 Route::get('/plan',[PlanController::class,"funListarPlan"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
+Route::get('/componente',[ComponenteController::class,"funListarComponente"]);
 
 Route::get('/departamento',[DepartamentoController::class,"funListarDepartamento"]);
 Route::get('/municipio',[MunicipioController::class,"funListarMunicipio"]);

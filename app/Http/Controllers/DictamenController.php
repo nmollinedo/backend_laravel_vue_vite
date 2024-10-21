@@ -259,7 +259,7 @@ class DictamenController extends Controller
     }
 
     public function funMostrarFormulario($id){
-        $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.dictamen_id =$id or d.transferencia_id =$id");
+        $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.dictamen_id =$id");
         return response()->json($formulario, 200);
     }
     public function funGuardarModificacion($id,Request $request){
@@ -277,6 +277,7 @@ class DictamenController extends Controller
     ]);*/
 
     $dictamen_id = $id;
+    $transferencia_id = $request->transferencia_id;
     $tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
     $fecha_dictamen = $request->fecha_registro;
     $fecha_inicio = $request->fecha_inicio;
@@ -337,6 +338,7 @@ class DictamenController extends Controller
         ) as codigo;
     ", [
         $dictamen_id,
+        //$transferencia_id,
         $tipo_dictamen_id,
         $preguntas1,
         $preguntas2,
@@ -358,7 +360,7 @@ class DictamenController extends Controller
      DB::select("
      SELECT transferencia.dictamen_insert(
      ?::integer,
-     0::integer,
+     ?::integer,
      1::integer, 
      1::integer, 
      1::integer,
@@ -382,8 +384,8 @@ class DictamenController extends Controller
      ?::varchar, 
      ?::varchar,
      ?::varchar,
-     '11/09/2024'::date,
-     '11/09/2024'::date, 
+     ?::date,
+     ?::date, 
      '11/09/2024'::date, 
      '11/09/2024'::date,
      1::integer, 
@@ -401,6 +403,7 @@ class DictamenController extends Controller
      'M101'::varchar)
  ", [
      $dictamen_id,  // Usar el dictamen_id recuperado
+     $transferencia_id,
      $fecha_dictamen,
      $mae,
      $mae_cargo,
@@ -409,7 +412,9 @@ class DictamenController extends Controller
      $responsable,
      $responsable_ci,
      $responsable_cargo,
-     $responsable_unidad
+     $responsable_unidad,
+     $fecha_inicio,
+     $fecha_termino
  ]);
     return response()->json(["message" => "Formulario modificado"]);
     }
@@ -429,6 +434,7 @@ class DictamenController extends Controller
 ]);*/
 
 $dictamen_id = $id;
+$transferencia_id =$request->transferencia_id;
 $tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
 $fecha_dictamen = $request->fecha_registro;
 $fecha_inicio = $request->fecha_inicio;
@@ -461,10 +467,10 @@ $responsable_unidad = $request->responsable_unidad;
 DB::select("
 SELECT transferencia.dictamen_insert(
 ?::integer,
-0::integer,
+?::integer,
 1::integer, 
 1::integer, 
-1::integer,
+4::integer,
 ?::date,
 1::integer,
 1::integer,
@@ -504,6 +510,7 @@ SELECT transferencia.dictamen_insert(
 'M102'::varchar)
 ", [
 $dictamen_id,  // Usar el dictamen_id recuperado
+$transferencia_id,
 $fecha_dictamen,
 $mae,
 $mae_cargo,

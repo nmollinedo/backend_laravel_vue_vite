@@ -81,6 +81,7 @@ Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierr
 
 Route::get('/filtrar-transferencia/{entidad_id}/{estado_id}',[TransferenciaController::class,"filtrarTrasferencias"]);
 Route::get('/listar-transferencia/{id}',[TransferenciaController::class,"funListarTransferencia"]);
+Route::get('/listar-transferencia-formulario/{id}',[TransferenciaController::class,"funListarTransferenciaFormulario"]);
 Route::delete('/eliminar-transferencia/{id}',[TransferenciaController::class,"funEliminar"]);
 Route::get('/transferencia/{id}',[TransferenciaController::class,"buscarTrasferencia"]);
 Route::get('/activar-cierre/{id}',[TransferenciaController::class,"funActivarCierre"]);

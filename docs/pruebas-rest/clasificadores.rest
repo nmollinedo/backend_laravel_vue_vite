@@ -115,6 +115,10 @@ GET http://127.0.0.1:8000/api/listar-transferencia/2
 Accept: application/json
 Content-Type: application/json
 
+### listar transferencia formulario
+GET http://127.0.0.1:8000/api/listar-transferencia-formulario/2
+Accept: application/json
+Content-Type: application/json
 
 ### listar formulario
 GET http://127.0.0.1:8000/api/dictamen-listar/94

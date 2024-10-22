@@ -75,59 +75,7 @@ class TransferenciaController extends Controller
 
     }
 
-    public function funListarTransferenciaFormulario($id){
-        $transferencia = DB::select("SELECT 
-            tra.id, 
-            tra.nombre_formal AS nombre_tpp, 
-            tra.nombre_formal, 
-            tra.codigo_tpp_formato AS codigo_tpp, 
-            tra.objeto_trasferencia AS objeto, 
-            tra.localizacion_trasferencia AS localizacion, 
-            tra.nombre_original AS denominacion_convenio, 
-            tra.fecha_inicio, 
-            tra.fecha_termino, 
-            tra.area_id, 
-            tra.entidad_operadora_id, 
-            tra.descripcion, 
-            p.descrip_plan AS plan, 
-            p2.descrip_programa AS programa, 
-            tra.plan_id, 
-            tra.programa_id, 
-            tra.departamento_id AS departamento, 
-            tra.municipio_id AS municipio, 
-            tra.poblacion_id, 
-            tra.cobertura, 
-            tra.poblacion, 
-            tra.entidad_ejecutora, 
-            ei.estado_inversion AS estado, 
-            tra.estado_id, 
-            i.nombre AS entidad,
-            ree.ear_id,
-            ree.ee_id,
-            tra.bloqueo_proyecto,
-            d.dictamen_id 
-        FROM 
-            transferencia.transferencias AS tra 
-            LEFT JOIN clasificadores.planes p ON p.id = tra.plan_id 
-            LEFT JOIN clasificadores.programas p2 ON p2.id = tra.programa_id 
-            LEFT JOIN clasificadores.estado_inversion ei ON ei.id = tra.estado_id 
-            LEFT JOIN transferencia.rel_transferencia_ear_ee rtee ON rtee.transferencia_id = tra.id
-            LEFT JOIN transferencia.rel_ear_ee ree ON rtee.ear_ee_id = ree.id 
-            LEFT JOIN clasificadores.instituciones i ON i.id = ree.ee_id
-            left join transferencia.dictamenes d on tra.id = d.transferencia_id 
-            
-        WHERE 
-            ree.ear_id = $id
-            AND tra.estado_id IN (1, 2)
-            -- Hacer opcional el estado de la institución
-            AND (i.estado_id = 1 OR i.estado_id IS NULL)
-        ORDER BY 
-            tra.id DESC; 
-        ");
-        return response()->json($transferencia, 200);
-
-
-    }
+    
 
     public function funListarTransferenciaFormulario($id){
         $transferencia = DB::select("SELECT  

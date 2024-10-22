@@ -70,7 +70,7 @@ from transferencia.transferencias_componente tc where tc.transferencia_id=$id");
         $monto_cofinanciamiento = $request->monto_cofinanciamiento;
         $monto_finan_externo = $request->monto_finan_externo;
         $monto_otros = $request->monto_otros;
-        DB::select("update transferencia.transferencias_componente set monto_aporte_local=$monto_aporte_local,monto_cofinanciamiento=$monto_cofinanciamiento,monto_finan_externo=$monto_finan_externo,monto_otros=$monto_otros where transferencia_id=$id and componente_id=$componente_id");
+        DB::select("update transferencia.transferencias_componente set monto_aporte_local=$monto_aporte_local,monto_cofinanciamiento=$monto_cofinanciamiento,monto_finan_externo=$monto_finan_externo,monto_otros=$monto_otros where transferencia_id=$id and tc.componente_id=$componente_id");
 
         return response()->json(["message" => "Datos actualizados correctamente"]);
     }

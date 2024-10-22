@@ -35,34 +35,23 @@ class DictamenController extends Controller
         fecha_modificacion, cierre_entidad, usuario_cierre_id, fecha_cierre_dictamen, con_archivo, ruta_archivo, usuario_archivo_id, fecha_archivo, version_id,(select t.bloqueo_proyecto from transferencia.transferencias t where t.id=$id)
         FROM transferencia.dictamenes where estado_id=1 and transferencia_id=$id");
         return response()->json($formulario, 200);
-        /*return response()->json([
-            "status" => true,
-            "message" => "information",
-            "data" => $producto
-        ]);*/
-
+ 
     }
 
     public function funListarDictamenRegistro($id){
         $producto = DB::select("select * from transferencia.dictamenes_registros where transferencia_id=$id");
         return response()->json($producto, 200);
-        /*return response()->json([
-            "status" => true,
-            "message" => "information",
-            "data" => $producto
-        ]);*/
-
     }
     
     public function funListarEjecutora($id){
         $entidad = DB::select("select * from clasificadores.instituciones where institucion_padre_id=$id");
         return response()->json($entidad, 200);
-        /*return response()->json([
-            "status" => true,
-            "message" => "information",
-            "data" => $producto
-        ]);*/
+    }
 
+    public function funVerificarFormularioActivo($id){
+        $entidad = DB::select("select d.id,d.dictamen_id,d.transferencia_id,d.ear_ee_id,d.tipo_dictamen_id,d.cierre_entidad 
+           from transferencia.dictamenes d where d.transferencia_id = $id and d.cierre_entidad = 0");
+        return response()->json($entidad, 200);
     }
 
     public function funGuardarFormulario($id, Request $request)

@@ -74,33 +74,79 @@ Content-Type: application/json
 }
 
 ### filtrar trasferencia
-GET    http://127.0.0.1:8000/api/filtrar-transferencia/2
+GET    http://127.0.0.1:8000/api/filtrar-transferencia/2/2
 Accept: application/json
 Content-Type: application/json
 
-{
-    "estado_id": 2
-}
+//{
+//    "estado_id": 2
+//}
 
-### departamento
+### Listar departamento
 GET http://127.0.0.1:8000/api/departamento
 Accept: application/json
 Content-Type: application/json
 
 
-### municipio
+### Listar municipio
 GET http://127.0.0.1:8000/api/municipio
 Accept: application/json
 Content-Type: application/json
 
 
-### municipio
+### Listar componente
+GET http://127.0.0.1:8000/api/componente
+Accept: application/json
+Content-Type: application/json
+
+### Listar componente id
+GET http://127.0.0.1:8000/api/componente/144
+Accept: application/json
+Content-Type: application/json
+
+
+### Eliminar componente id
+DELETE  http://127.0.0.1:8000/api/eliminar-componente/144/19
+Accept: application/json
+Content-Type: application/json
+
+### guardar componente
+POST  http://127.0.0.1:8000/api/componente
+Accept: application/json
+Content-Type: application/json
+
+{
+    "transferencia_id": 138,
+    "componente_id": 1,
+    "monto_aporte_local": 1,
+    "monto_cofinanciamiento": 1,
+    "monto_finan_externo": 1,
+    "monto_otros": 1 
+   
+}
+
+### modificar componente
+POST  http://127.0.0.1:8000/api/modificar-componente/144
+Accept: application/json
+Content-Type: application/json
+
+{
+    "transferencia_id": 144,
+    "componente_id": 1,
+    "monto_aporte_local": 2,
+    "monto_cofinanciamiento": 2,
+    "monto_finan_externo": 2,
+    "monto_otros": 2 
+   
+}
+
+### Listar municipio
 GET http://127.0.0.1:8000/api/municipio/2
 Accept: application/json
 Content-Type: application/json
 
 
-### poblacion
+### Listar poblacion
 GET http://127.0.0.1:8000/api/poblacion
 Accept: application/json
 Content-Type: application/json
@@ -120,7 +166,13 @@ GET http://127.0.0.1:8000/api/listar-transferencia-formulario/2
 Accept: application/json
 Content-Type: application/json
 
-### listar formulario
+
+### listar  verificar-formulario
+GET http://127.0.0.1:8000/api/verificar-formulario/144
+Accept: application/json
+Content-Type: application/json
+
+### listar formulario verificar-formulario
 GET http://127.0.0.1:8000/api/dictamen-listar/94
 Accept: application/json
 Content-Type: application/json
@@ -132,7 +184,7 @@ Content-Type: application/json
 
 
 ### mostrar formulario
-GET http://127.0.0.1:8000/api/dictamen-mostrar/7
+GET http://127.0.0.1:8000/api/dictamen-mostrar/145
 Accept: application/json
 Content-Type: application/json
 

@@ -34,16 +34,16 @@ class ComponenteController extends Controller
     public function funListarComponente(){
         $componente = DB::select("select * from clasificadores.componente c where c.vigente='1'");
         return response()->json($componente, 200);
-     
+
     }
     public function funListarComponenteId($id){
         $componente = DB::select("select tc.transferencia_id,tc.componente_id,tc.monto_aporte_local,tc.monto_cofinanciamiento,tc.monto_finan_externo,tc.monto_otros,
 (select c.componente from clasificadores.componente c where c.id=tc.componente_id)as componente
 from transferencia.transferencias_componente tc where tc.transferencia_id=$id");
         return response()->json($componente, 200);
-     
+
     }
-   
+
     public function funGuardarComponente(Request $request){
         $transferencia_id = $request->transferencia_id;
         $componente_id = $request->componente_id;
@@ -51,9 +51,9 @@ from transferencia.transferencias_componente tc where tc.transferencia_id=$id");
         $monto_cofinanciamiento = $request->monto_cofinanciamiento;
         $monto_finan_externo = $request->monto_finan_externo;
         $monto_otros = $request->monto_otros;
-        
+
         DB::insert('INSERT INTO transferencia.transferencias_componente (transferencia_id,componente_id,
-            monto_aporte_local, monto_cofinanciamiento, monto_finan_externo, monto_otros, 
+            monto_aporte_local, monto_cofinanciamiento, monto_finan_externo, monto_otros,
             cod_usuario, fecha_registro, cod_usuario_modificacion, fecha_modificacion
         ) VALUES ( ?,?,?,?,?,?,1,NOW(),1,NOW()
         )',[$transferencia_id,$componente_id,$monto_aporte_local,$monto_cofinanciamiento,$monto_finan_externo,$monto_otros]);
@@ -61,7 +61,7 @@ from transferencia.transferencias_componente tc where tc.transferencia_id=$id");
     }
 
     public function funMostrar($identificador){
-        
+
     }
     public function funModificarComponente($id,Request $request){
         $transferencia_id = $request->transferencia_id;
@@ -70,7 +70,7 @@ from transferencia.transferencias_componente tc where tc.transferencia_id=$id");
         $monto_cofinanciamiento = $request->monto_cofinanciamiento;
         $monto_finan_externo = $request->monto_finan_externo;
         $monto_otros = $request->monto_otros;
-        DB::select("update transferencia.transferencias_componente set monto_aporte_local=$monto_aporte_local,monto_cofinanciamiento=$monto_cofinanciamiento,monto_finan_externo=$monto_finan_externo,monto_otros=$monto_otros where transferencia_id=$id and tc.componente_id=$componente_id");
+        DB::select("update transferencia.transferencias_componente set monto_aporte_local=$monto_aporte_local,monto_cofinanciamiento=$monto_cofinanciamiento,monto_finan_externo=$monto_finan_externo,monto_otros=$monto_otros where transferencia_id=$id and componente_id=$componente_id");
 
         return response()->json(["message" => "Datos actualizados correctamente"]);
     }

@@ -41,6 +41,11 @@ class PlanController extends Controller
     }
     
 
+    public function funListarTipoClasificador(){
+        $plan = DB::select('select tc.id,tc.tipo_clasificador,tc.vigente from clasificadores.tipo_clasificador tc where tc.vigente = 1');
+        return response()->json($plan, 200);
+    }
+
     public function funGuardar(Request $request){
         $sigla = $request->sigla;
         $entidad = $request->entidad;

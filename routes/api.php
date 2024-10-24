@@ -55,6 +55,8 @@ Route::get('/area',[AreaController::class,"funListar"]);
 Route::get('/entidad',[EntidadController::class,"funListar"]);
 Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
 Route::get('/plan',[PlanController::class,"funListarPlan"]);
+Route::get('/listar-clasificador',[PlanController::class,"funListarTipoClasificador"]);
+Route::post('/guardar-Plan-Programa',[ProgramaController::class,"funGuardarPlanPrograma"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
 Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
 Route::get('/componente',[ComponenteController::class,"funListarComponente"]);

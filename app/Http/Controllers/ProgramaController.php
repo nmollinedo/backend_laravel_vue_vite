@@ -52,6 +52,16 @@ class ProgramaController extends Controller
         DB::insert('insert into entidad(cod_entidad,sigla,entidad)values(?,?,?)',[$sigla,$entidad]);
     }
 
+
+    public function funGuardarPlanPrograma(Request $request){
+        $clasificador = $request->clasificador;
+        $descripcion = $request->descripcion;
+        $tipo_clasificador_id = $request->tipo_clasificador_id;
+        DB::insert('INSERT INTO clasificadores.clasificador
+        (clasificador, descripcion, tipo_clasificador_id, vigente, marca_cofinanciador, cofinanciador)
+        VALUES( ?, ?, ?, 1, 0, 0)',[$clasificador,$descripcion,$tipo_clasificador_id]);
+        return response()->json(["message" => "Plan programa registrado correctamente"]);
+    }
     public function funMostrar($identificador){
         
     }

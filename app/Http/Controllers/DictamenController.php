@@ -251,6 +251,14 @@ class DictamenController extends Controller
         $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.dictamen_id =$id");
         return response()->json($formulario, 200);
     }
+
+    public function funMostrarEditFecha($id){
+        $formulario = DB::select("select d.id ,d.dictamen_id ,d.transferencia_id ,d.tipo_dictamen_id,d.cierre_entidad, d.fecha_dictamen ,d.fecha_registro ,d.proyecto_fecha_inicio ,d.proyecto_fecha_fin,d.estado_id,
+                                d.mae ,d.mae_cargo ,d.mae_ci ,d.mae_documento_designacion ,d.responsable,d.responsable_cargo, d.responsable_unidad,d.responsable_ci 
+                                from transferencia.dictamenes_registros dr, transferencia.dictamenes d 
+                                where dr.id = d.dictamen_id and d.dictamen_id =$id and cierre_entidad = 0");
+        return response()->json($formulario, 200);
+    }
     public function funGuardarModificacion($id,Request $request){
              // Validar los datos recibidos
     /*$validated = $request->validate([
@@ -408,112 +416,221 @@ class DictamenController extends Controller
     return response()->json(["message" => "Formulario modificado"]);
     }
 
-    public function funGuardarModificacionFecha($id,Request $request){
+    public function funGuardarFecha($id,Request $request){
         // Validar los datos recibidos
-/*$validated = $request->validate([
-   'etapa' => 'required|integer',
-   'fecha_registro' => 'required|date_format:d/m/Y',
-   'fecha_inicio' => 'required|date_format:d/m/Y',
-   'fecha_termino' => 'required|date_format:d/m/Y',
-   'pregunta_1' => 'required|boolean',
-   'pregunta_2' => 'required|boolean',
-   'pregunta_3' => 'required|boolean',
-   'respaldo_pregunta_3' => 'required|string',
-   'fecha_pregunta_3' => 'required|date_format:d/m/Y'
-]);*/
+        /*$validated = $request->validate([
+        'etapa' => 'required|integer',
+        'fecha_registro' => 'required|date_format:d/m/Y',
+        'fecha_inicio' => 'required|date_format:d/m/Y',
+        'fecha_termino' => 'required|date_format:d/m/Y',
+        'pregunta_1' => 'required|boolean',
+        'pregunta_2' => 'required|boolean',
+        'pregunta_3' => 'required|boolean',
+        'respaldo_pregunta_3' => 'required|string',
+        'fecha_pregunta_3' => 'required|date_format:d/m/Y'
+        ]);*/
 
-$dictamen_id = $id;
-$transferencia_id =$request->transferencia_id;
-$tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
-$fecha_dictamen = $request->fecha_registro;
-$fecha_inicio = $request->fecha_inicio;
-$fecha_termino = $request->fecha_termino;
-$preguntas1 = $request->pregunta_1;
-$preguntas2 = $request->pregunta_2;
-$preguntas3 = $request->pregunta_3;
-$respaldo_preguntas_3 = $request->respaldo_pregunta_3;
-$fecha_preguntas_3 = $request->fecha_pregunta_3;
-$preguntas4 = $request->pregunta_4;
-$respaldo_preguntas_4 = $request->respaldo_pregunta_4;
-$fecha_preguntas_4 = $request->fecha_pregunta_4;
-$preguntas5 = $request->pregunta_5;
-$respaldo_preguntas_5 = $request->respaldo_pregunta_5;
-$fecha_preguntas_5 = $request->fecha_pregunta_5;
-$preguntas6 = $request->pregunta_6;
-$respaldo_preguntas_6 = $request->respaldo_pregunta_6;
-$fecha_preguntas_6 = $request->fecha_pregunta_6;
-$mae = $request->mae;
-$mae_cargo = $request->mae_cargo;
-$mae_ci = $request->mae_ci;
-$mae_documento_designacion = $request->mae_documento_designacion;
-$responsable = $request->responsable;
-$responsable_ci = $request->responsable_ci;
-$responsable_cargo = $request->responsable_cargo;
-$responsable_unidad = $request->responsable_unidad;
+        $dictamen_id = $id;
+        $transferencia_id =$request->transferencia_id;
+        $tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
+        $fecha_dictamen = $request->fecha_registro;
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_termino = $request->fecha_termino;
+        $preguntas1 = $request->pregunta_1;
+        $preguntas2 = $request->pregunta_2;
+        $preguntas3 = $request->pregunta_3;
+        $respaldo_preguntas_3 = $request->respaldo_pregunta_3;
+        $fecha_preguntas_3 = $request->fecha_pregunta_3;
+        $preguntas4 = $request->pregunta_4;
+        $respaldo_preguntas_4 = $request->respaldo_pregunta_4;
+        $fecha_preguntas_4 = $request->fecha_pregunta_4;
+        $preguntas5 = $request->pregunta_5;
+        $respaldo_preguntas_5 = $request->respaldo_pregunta_5;
+        $fecha_preguntas_5 = $request->fecha_pregunta_5;
+        $preguntas6 = $request->pregunta_6;
+        $respaldo_preguntas_6 = $request->respaldo_pregunta_6;
+        $fecha_preguntas_6 = $request->fecha_pregunta_6;
+        $mae = $request->mae;
+        $mae_cargo = $request->mae_cargo;
+        $mae_ci = $request->mae_ci;
+        $mae_documento_designacion = $request->mae_documento_designacion;
+        $responsable = $request->responsable;
+        $responsable_ci = $request->responsable_ci;
+        $responsable_cargo = $request->responsable_cargo;
+        $responsable_unidad = $request->responsable_unidad;
 
 
-// Llamada a la segunda función con el dictamen_id recuperado
-DB::select("
-SELECT transferencia.dictamen_insert(
-?::integer,
-?::integer,
-1::integer, 
-1::integer, 
-4::integer,
-?::date,
-1::integer,
-1::integer,
-'tareas'::varchar,
-1::integer,
-1212::integer,
-'121212'::varchar, 
-'18/09/2024'::date, 
-'1212'::varchar, 
-'18/09/2024'::date,
-'1212'::varchar, 
-'18/09/2024'::date, 
-?::varchar, 
-?::varchar, 
-?::varchar, 
-?::varchar,
-?::varchar,
-?::varchar, 
-?::varchar,
-?::varchar,
-?::date,
-?::date, 
-'11/09/2024'::date, 
-'11/09/2024'::date,
-1::integer, 
-'11/09/2024'::date,
-1::integer, 
-'11/09/2024'::date, 
-1::integer,
-1::integer,
-'11/09/2024'::date,
-1::integer,
-'1'::varchar, 
-1::integer, 
-'11/09/2024'::date, 
-1::integer, 
-'M102'::varchar)
-", [
-$dictamen_id,  // Usar el dictamen_id recuperado
-$transferencia_id,
-$fecha_dictamen,
-$mae,
-$mae_cargo,
-$mae_ci,
-$mae_documento_designacion,
-$responsable,
-$responsable_ci,
-$responsable_cargo,
-$responsable_unidad,
-$fecha_inicio,
-$fecha_termino
-]);
-return response()->json(["message" => "Formulario modificado"]);
-}
+        // Llamada a la segunda función con el dictamen_id recuperado
+        DB::select("
+        SELECT transferencia.dictamen_insert(
+        ?::integer,
+        ?::integer,
+        1::integer, 
+        1::integer, 
+        ?::integer,
+        ?::date,
+        1::integer,
+        1::integer,
+        'tareas'::varchar,
+        1::integer,
+        1212::integer,
+        '121212'::varchar, 
+        '18/09/2024'::date, 
+        '1212'::varchar, 
+        '18/09/2024'::date,
+        '1212'::varchar, 
+        '18/09/2024'::date, 
+        ?::varchar, 
+        ?::varchar, 
+        ?::varchar, 
+        ?::varchar,
+        ?::varchar,
+        ?::varchar, 
+        ?::varchar,
+        ?::varchar,
+        ?::date,
+        ?::date, 
+        '11/09/2024'::date, 
+        '11/09/2024'::date,
+        1::integer, 
+        '11/09/2024'::date,
+        1::integer, 
+        '11/09/2024'::date, 
+        1::integer,
+        1::integer,
+        '11/09/2024'::date,
+        1::integer,
+        '1'::varchar, 
+        1::integer, 
+        '11/09/2024'::date, 
+        1::integer, 
+        'M102'::varchar)
+        ", [
+        $dictamen_id,  // Usar el dictamen_id recuperado
+        $transferencia_id,
+        $tipo_dictamen_id,
+        $fecha_dictamen,
+        $mae,
+        $mae_cargo,
+        $mae_ci,
+        $mae_documento_designacion,
+        $responsable,
+        $responsable_ci,
+        $responsable_cargo,
+        $responsable_unidad,
+        $fecha_inicio,
+        $fecha_termino
+        ]);
+        return response()->json(["message" => "Formulario modificado"]);
+        }
+
+    public function funGuardarEditFecha($id,Request $request){
+                            // Validar los datos recibidos
+                    /*$validated = $request->validate([
+                    'etapa' => 'required|integer',
+                    'fecha_registro' => 'required|date_format:d/m/Y',
+                    'fecha_inicio' => 'required|date_format:d/m/Y',
+                    'fecha_termino' => 'required|date_format:d/m/Y',
+                    'pregunta_1' => 'required|boolean',
+                    'pregunta_2' => 'required|boolean',
+                    'pregunta_3' => 'required|boolean',
+                    'respaldo_pregunta_3' => 'required|string',
+                    'fecha_pregunta_3' => 'required|date_format:d/m/Y'
+                    ]);*/
+
+                    $dictamen_id = $id;
+                    $transferencia_id =$request->transferencia_id;
+                    $tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
+                    $fecha_dictamen = $request->fecha_registro;
+                    $fecha_inicio = $request->fecha_inicio;
+                    $fecha_termino = $request->fecha_termino;
+                    $preguntas1 = $request->pregunta_1;
+                    $preguntas2 = $request->pregunta_2;
+                    $preguntas3 = $request->pregunta_3;
+                    $respaldo_preguntas_3 = $request->respaldo_pregunta_3;
+                    $fecha_preguntas_3 = $request->fecha_pregunta_3;
+                    $preguntas4 = $request->pregunta_4;
+                    $respaldo_preguntas_4 = $request->respaldo_pregunta_4;
+                    $fecha_preguntas_4 = $request->fecha_pregunta_4;
+                    $preguntas5 = $request->pregunta_5;
+                    $respaldo_preguntas_5 = $request->respaldo_pregunta_5;
+                    $fecha_preguntas_5 = $request->fecha_pregunta_5;
+                    $preguntas6 = $request->pregunta_6;
+                    $respaldo_preguntas_6 = $request->respaldo_pregunta_6;
+                    $fecha_preguntas_6 = $request->fecha_pregunta_6;
+                    $mae = $request->mae;
+                    $mae_cargo = $request->mae_cargo;
+                    $mae_ci = $request->mae_ci;
+                    $mae_documento_designacion = $request->mae_documento_designacion;
+                    $responsable = $request->responsable;
+                    $responsable_ci = $request->responsable_ci;
+                    $responsable_cargo = $request->responsable_cargo;
+                    $responsable_unidad = $request->responsable_unidad;
+
+
+                    // Llamada a la segunda función con el dictamen_id recuperado
+                    DB::select("
+                    SELECT transferencia.dictamen_insert(
+                    ?::integer,
+                    ?::integer,
+                    1::integer, 
+                    1::integer, 
+                    ?::integer,
+                    ?::date,
+                    1::integer,
+                    1::integer,
+                    'tareas'::varchar,
+                    1::integer,
+                    1212::integer,
+                    '121212'::varchar, 
+                    '18/09/2024'::date, 
+                    '1212'::varchar, 
+                    '18/09/2024'::date,
+                    '1212'::varchar, 
+                    '18/09/2024'::date, 
+                    ?::varchar, 
+                    ?::varchar, 
+                    ?::varchar, 
+                    ?::varchar,
+                    ?::varchar,
+                    ?::varchar, 
+                    ?::varchar,
+                    ?::varchar,
+                    ?::date,
+                    ?::date, 
+                    '11/09/2024'::date, 
+                    '11/09/2024'::date,
+                    1::integer, 
+                    '11/09/2024'::date,
+                    1::integer, 
+                    '11/09/2024'::date, 
+                    1::integer,
+                    1::integer,
+                    '11/09/2024'::date,
+                    1::integer,
+                    '1'::varchar, 
+                    1::integer, 
+                    '11/09/2024'::date, 
+                    1::integer, 
+                    'M103'::varchar)
+                    ", [
+                    $dictamen_id,  // Usar el dictamen_id recuperado
+                    $transferencia_id,
+                    $tipo_dictamen_id,
+                    $fecha_dictamen,
+                    $mae,
+                    $mae_cargo,
+                    $mae_ci,
+                    $mae_documento_designacion,
+                    $responsable,
+                    $responsable_ci,
+                    $responsable_cargo,
+                    $responsable_unidad,
+                    $fecha_inicio,
+                    $fecha_termino
+                    ]);
+                return response()->json(["message" => "Formulario modificado"]);
+                }
     
     public function funEliminarFormulario($id)
         {

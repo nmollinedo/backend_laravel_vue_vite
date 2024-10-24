@@ -56,6 +56,7 @@ Route::get('/entidad',[EntidadController::class,"funListar"]);
 Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
 Route::get('/plan',[PlanController::class,"funListarPlan"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
+Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
 Route::get('/componente',[ComponenteController::class,"funListarComponente"]);
 Route::get('/componente/{id}',[ComponenteController::class,"funListarComponenteId"]);
 Route::post('/componente',[ComponenteController::class,"funGuardarComponente"]);
@@ -69,14 +70,17 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
-Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2
+Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2  modificar-edit-fecha
 Route::get('/listar-tipo2',[TipoDictamenController::class,"funListarTipoDictamen2"]);
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
+Route::get('/dictamen-mostrar-fecha/{id}',[DictamenController::class,"funMostrarEditFecha"]);
+
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);  
 Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   funEliminarCierre filtarTrasferencias 
-Route::post('/modificar-dictamen-fecha/{id}',[DictamenController::class,"funGuardarModificacionFecha"]);
+Route::post('/modificar-dictamen-fecha/{id}',[DictamenController::class,"funGuardarFecha"]);
+Route::post('/modificar-edit-fecha/{id}',[DictamenController::class,"funGuardarEditFecha"]);
 Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierre"]);
 Route::get('/verificar-formulario/{id}',[DictamenController::class,"funVerificarFormularioActivo"]);
 

@@ -32,12 +32,17 @@ class ProgramaController extends Controller
     public function funListarPrograma($id){
         $programa = DB::select("select * from clasificadores.programas where clasificadores.programas.plan_id=$id");
         return response()->json($programa, 200);
-        /*return response()->json([
-            "status" => true,
-            "message" => "information",
-            "data" => $producto
-        ]);*/
+      
+    }
 
+
+    public function funListarPlanPrograma(){
+        $programa = DB::select("select c.id ,c.clasificador, c.descripcion ,c.tipo_clasificador_id, c.vigente,c.marca_cofinanciador,c.cofinanciador,tc.tipo_clasificador
+         from clasificadores.clasificador c inner join clasificadores.tipo_clasificador tc  
+         on c.tipo_clasificador_id = tc.id 
+         where tc.vigente <>0");
+        return response()->json($programa, 200);
+      
     }
     
 

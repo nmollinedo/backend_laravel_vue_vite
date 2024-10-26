@@ -40,7 +40,7 @@ class ProgramaController extends Controller
         $programa = DB::select("select c.id ,c.clasificador, c.descripcion ,c.tipo_clasificador_id, c.vigente,c.marca_cofinanciador,c.cofinanciador,tc.tipo_clasificador
          from clasificadores.clasificador c inner join clasificadores.tipo_clasificador tc  
          on c.tipo_clasificador_id = tc.id 
-         where tc.vigente <>0");
+         where c.vigente <> 0 order by id asc");
         return response()->json($programa, 200);
       
     }
@@ -57,18 +57,30 @@ class ProgramaController extends Controller
         $clasificador = $request->clasificador;
         $descripcion = $request->descripcion;
         $tipo_clasificador_id = $request->tipo_clasificador_id;
-        DB::insert('INSERT INTO clasificadores.clasificador
+        DB::insert("INSERT INTO clasificadores.clasificador
         (clasificador, descripcion, tipo_clasificador_id, vigente, marca_cofinanciador, cofinanciador)
-        VALUES( ?, ?, ?, 1, 0, 0)',[$clasificador,$descripcion,$tipo_clasificador_id]);
+        VALUES( ?, ?, ?, 1, 0, 0)",[$clasificador,$descripcion,$tipo_clasificador_id]);
         return response()->json(["message" => "Plan programa registrado correctamente"]);
     }
     public function funMostrar($identificador){
         
     }
-    public function funModificar($id,Request $request){
-        
+    public function funModificarPlanPrograma($id,Request $request){
+        $clasificador = $request->clasificador;
+        $descripcion = $request->descripcion;
+        $tipo_clasificador_id = $request->tipo_clasificador_id;
+        DB::select("UPDATE clasificadores.clasificador
+                    SET clasificador=?, descripcion=?, tipo_clasificador_id=?, vigente=0, marca_cofinanciador=0, cofinanciador=0
+                    WHERE id=$id
+                    ",[$clasificador,$descripcion,$tipo_clasificador_id]);
+        return response()->json(["message" => "Plan programa actualizado correctamente"]);
     }
-    public function funEliminar($id){
-        
+    public function funEliminarPlanPrograma($id){
+   
+        DB::select("UPDATE clasificadores.clasificador
+                    SET vigente=0
+                    WHERE id=$id
+                    ");
+        return response()->json(["message" => "Plan programa eliminado correctamente"]);
     }
 }

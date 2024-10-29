@@ -38,6 +38,15 @@ class DictamenController extends Controller
  
     }
 
+    public function funListarFormularioTodo(){
+        $formulario = DB::select("SELECT id, dictamen_id,transferencia_id, ear_ee_id, etapa_id,tipo_dictamen_id,(select td.descrip_tipo_dictamen from clasificadores.tipo_dictamen td where td.id = tipo_dictamen_id) as tipo_dictamen, fecha_dictamen, tipo_cambio_costos_id, tipo_justificacion_id, justificacion, moneda_id, gestion_registro, informe_tecnico, informe_tecnico_fecha, informe_legal, informe_legal_fecha, resolucion, resolucion_fecha, mae, mae_cargo, mae_ci, mae_documento_designacion, responsable,
+        responsable_ci, responsable_cargo, responsable_unidad, proyecto_fecha_inicio, proyecto_fecha_fin, etapa_fecha_inicio, etapa_fecha_fin, usuario_id, fecha_registro, usuario_modificacion_id, 
+        fecha_modificacion, cierre_entidad, usuario_cierre_id, fecha_cierre_dictamen, con_archivo, ruta_archivo, usuario_archivo_id, fecha_archivo, version_id
+        FROM transferencia.dictamenes where estado_id=1");
+        return response()->json($formulario, 200);
+ 
+    }
+
     public function funListarDictamenRegistro($id){
         $producto = DB::select("select * from transferencia.dictamenes_registros where transferencia_id=$id");
         return response()->json($producto, 200);
@@ -54,7 +63,85 @@ class DictamenController extends Controller
         return response()->json($entidad, 200);
     }
 
+    public function funListarFormularioComponenteId($id){
+        $componente = DB::select("select tdc.transferencia_id,tdc.componente_id,tdc.monto_aporte_local,tdc.monto_cofinanciamiento,tdc.monto_finan_externo,tdc.monto_otros,
+(select c.componente from clasificadores.componente c where c.id=tdc.componente_id)as componente
+from transferencia.transferencias_dictamen_costos tdc where tdc.vigente=true and tdc.transferencia_id=$id");
+        return response()->json($componente, 200);
+
+    }
+
+    public function funGuardarDictamen(Request $request){
+        $dictamen_id = $request->dictamen_id;
+        $transferencia_id = $request->transferencia_id;
+        $componente_id = $request->componente_id;
+        $monto_aporte_local= $request->monto_aporte_local;
+        $monto_cofinanciamiento = $request->monto_cofinanciamiento;
+        $monto_finan_externo = $request->monto_finan_externo;
+        $monto_otros = $request->monto_otros;
+
+        DB::insert(' INSERT INTO transferencia.transferencias_dictamen_costos (
+           dictamen_id, transferencia_id, componente_id,
+           monto_aporte_local, monto_cofinanciamiento, monto_finan_externo, monto_otros,
+           usuario_id, fecha_registro,vigente
+       ) 
+       VALUES (
+           ?, ?,?,
+           ?, ?, ?, ?,
+           1, now(),true
+       );',[$dictamen_id,$transferencia_id,$componente_id,$monto_aporte_local,$monto_cofinanciamiento,$monto_finan_externo,$monto_otros]);
+        return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
+    public function funEliminarDictamenCosto($transferencia_id,$componente_id){
+        DB::select(" UPDATE transferencia.transferencias_dictamen_costos
+       SET vigente = false
+       where transferencia_id=$transferencia_id and componente_id=$componente_id");
+
+        return response()->json(["message" => "Datos eliminados correctamente"]);
+    }
+
+    public function funGuardarFormularioComponenteCosto(Request $request){
+        $dictamen_id = $request->dictamen_id;
+        $transferencia_id = $request->transferencia_id;
+        $componente_id = $request->componente_id;
+        $monto_aporte_local= $request->monto_aporte_local;
+        $monto_cofinanciamiento = $request->monto_cofinanciamiento;
+        $monto_finan_externo = $request->monto_finan_externo;
+        $monto_otros = $request->monto_otros;
+        DB::select('
+                SELECT * FROM transferencia.transferencias_formulario_componente(
+                    ?::integer, ?::integer, 2, ?::integer, 
+                    ?::numeric, ?::numeric, ?::numeric, ?::numeric, 
+                    1, ?::date, 1, ?::date, ?::varchar
+                )', [
+                    $dictamen_id, $transferencia_id, $componente_id, 
+                    $monto_aporte_local, $monto_cofinanciamiento, 
+                    $monto_finan_externo, $monto_otros, 
+                    '2024-09-11', '2024-09-11', 'A101'
+                ]
+            );
+
+        return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
+    public function funCerrarFormularioCosto(Request $request){
+        $dictamen_id = $request->dictamen_id;
+        $transferencia_id = $request->transferencia_id;
+      
+        DB::select('
+                SELECT * FROM transferencia.cerrar_formulario_costo(
+                    ?::integer, ?::integer
+                )', [
+                    $dictamen_id, $transferencia_id
+                ]
+            );
+
+        return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
     public function funGuardarFormulario($id, Request $request)
+    
     {
         // Validar los datos recibidos
     $validated = $request->validate([

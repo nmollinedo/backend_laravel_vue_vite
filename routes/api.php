@@ -77,16 +77,22 @@ Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni
 Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2  modificar-edit-fecha
 Route::get('/listar-tipo2',[TipoDictamenController::class,"funListarTipoDictamen2"]);
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
+Route::get('/dictamen-listar-todo',[DictamenController::class,"funListarFormularioTodo"]);
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
 Route::get('/dictamen-mostrar-fecha/{id}',[DictamenController::class,"funMostrarEditFecha"]);
+Route::post('/guardar-dictamen',[DictamenController::class,"funGuardarDictamen"]);
+Route::delete('/eliminar-dictamen-costo/{transferencia_id}/{componente_id}',[DictamenController::class,"funEliminarDictamenCosto"]);
+Route::post('/guardar-formulario-componente',[DictamenController::class,"funGuardarFormularioComponenteCosto"]);
 
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
-Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);  
+Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);
+Route::post('/cerrar-formulario-costo',[DictamenController::class,"funCerrarFormularioCosto"]); 
 Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   funEliminarCierre filtarTrasferencias 
 Route::post('/modificar-dictamen-fecha/{id}',[DictamenController::class,"funGuardarFecha"]);
 Route::post('/modificar-edit-fecha/{id}',[DictamenController::class,"funGuardarEditFecha"]);
 Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierre"]);
 Route::get('/verificar-formulario/{id}',[DictamenController::class,"funVerificarFormularioActivo"]);
+Route::get('listar-formulario-costo/{id}',[DictamenController::class,"funListarFormularioComponenteId"]);
 
 Route::get('/filtrar-transferencia/{entidad_id}/{estado_id}',[TransferenciaController::class,"filtrarTrasferencias"]);
 Route::get('/listar-transferencia/{id}',[TransferenciaController::class,"funListarTransferencia"]);

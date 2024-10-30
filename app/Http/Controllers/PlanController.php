@@ -39,6 +39,17 @@ class PlanController extends Controller
         ]);*/
 
     }
+
+    public function funListarPlan2($id){
+        $plan = DB::select("select ec.cod_entidad,ec.rel_clasificador,ec.vigente,c.id ,c.clasificador,c.tipo_clasificador_id 
+                            from clasificadores.entidad_clasificador ec,clasificadores.clasificador c
+                            where ec.vigente=1 and ec.cod_entidad=$id 
+                            and ec.rel_clasificador = c.id 
+                            and c.tipo_clasificador_id = 1");
+        return response()->json($plan, 200);
+   
+
+    }
     
 
     public function funListarTipoClasificador(){
@@ -55,7 +66,8 @@ class PlanController extends Controller
     public function funMostrar($identificador){
         
     }
-    public function funModificar($id,Request $request){
+    public function funModificarPlan($id,Request $request){
+
         
     }
     public function funEliminar($id){

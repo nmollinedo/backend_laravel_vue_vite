@@ -746,14 +746,13 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
                 return response()->json(["message" => "Formulario modificado"]);
                 }
     
-    public function funEliminarFormulario($id)
+    public function funEliminarFormulario($id,$transferencia_id)
         {
-            $formulario = DB::select("
-            delete from transferencia.dictamenes where transferencia.dictamenes.dictamen_id = $id
+            $formulario = DB::select("select * from transferencia.borrar_formulario($id::integer, $transferencia_id::integer);
              ");
-             $formulario = DB::select("
+          /*   $formulario = DB::select("
             delete from transferencia.dictamenes_registros where transferencia.dictamenes_registros.id = $id
-             ");
+             ");*/
              return response()->json(["message" => "Formulario eliminado"]);
         }
 

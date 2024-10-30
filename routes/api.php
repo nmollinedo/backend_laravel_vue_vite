@@ -55,11 +55,13 @@ Route::get('/area',[AreaController::class,"funListar"]);
 Route::get('/entidad',[EntidadController::class,"funListar"]);
 Route::get('/entidad/{id}',[EntidadController::class,"funListarEjecutora"]);
 Route::get('/plan',[PlanController::class,"funListarPlan"]);
+Route::get('/plan/{id}',[PlanController::class,"funListarPlan2"]);
 Route::get('/listar-clasificador',[PlanController::class,"funListarTipoClasificador"]);
 Route::post('/guardar-plan-programa',[ProgramaController::class,"funGuardarPlanPrograma"]);
 Route::post('/modificar-plan-programa/{id}',[ProgramaController::class,"funModificarPlanPrograma"]);
 Route::delete('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
+Route::get('/programa/{entidad_id}/{clasificador_id}',[ProgramaController::class,"funListarPrograma2"]);
 Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
 //Route::get('/editar-plan-programa',[ProgramaController::class,"funEditarPlanPrograma"]);
 Route::get('/componente',[ComponenteController::class,"funListarComponente"]);
@@ -85,7 +87,7 @@ Route::post('/guardar-dictamen',[DictamenController::class,"funGuardarDictamen"]
 Route::delete('/eliminar-dictamen-costo/{transferencia_id}/{componente_id}',[DictamenController::class,"funEliminarDictamenCosto"]);
 Route::post('/guardar-formulario-costo',[DictamenController::class,"funGuardarFormularioComponenteCosto"]);
 
-Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
+Route::delete('/dictamen-eliminar/{id}/{transferencia_id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);
 Route::post('/cerrar-formulario-costo',[DictamenController::class,"funCerrarFormularioCosto"]); 
 Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funModificarFormularioCosto

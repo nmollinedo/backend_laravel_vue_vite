@@ -40,19 +40,13 @@ class ProgramaController extends Controller
         $programa = DB::select("select c.id ,c.clasificador, c.descripcion ,c.tipo_clasificador_id, c.vigente,c.marca_cofinanciador,c.cofinanciador,tc.tipo_clasificador
          from clasificadores.clasificador c inner join clasificadores.tipo_clasificador tc  
          on c.tipo_clasificador_id = tc.id 
-         where c.vigente <> 0 order by id asc");
+         where c.vigente <> 0 order by id desc");
         return response()->json($programa, 200);
       
     }
     
 
-    public function funGuardar(Request $request){
-        $sigla = $request->sigla;
-        $entidad = $request->entidad;
-        DB::insert('insert into entidad(cod_entidad,sigla,entidad)values(?,?,?)',[$sigla,$entidad]);
-    }
-
-
+ 
     public function funGuardarPlanPrograma(Request $request){
         $clasificador = $request->clasificador;
         $descripcion = $request->descripcion;
@@ -70,7 +64,7 @@ class ProgramaController extends Controller
         $descripcion = $request->descripcion;
         $tipo_clasificador_id = $request->tipo_clasificador_id;
         DB::select("UPDATE clasificadores.clasificador
-                    SET clasificador=?, descripcion=?, tipo_clasificador_id=?, vigente=0, marca_cofinanciador=0, cofinanciador=0
+                    SET clasificador=?, descripcion=?, tipo_clasificador_id=?
                     WHERE id=$id
                     ",[$clasificador,$descripcion,$tipo_clasificador_id]);
         return response()->json(["message" => "Plan programa actualizado correctamente"]);

@@ -125,6 +125,38 @@ Content-Type: application/json
    
 }
 
+### guardar formulario componente
+POST  http://127.0.0.1:8000/api/guardar-formulario-componente
+Accept: application/json
+Content-Type: application/json
+
+{
+    "dictamen_id": 156,
+    "transferencia_id": 169,
+    "componente_id": 15,
+    "monto_aporte_local": 15,
+    "monto_cofinanciamiento": 15,
+    "monto_finan_externo": 15,
+    "monto_otros": 15 
+   
+}
+
+### guardar dictamen costo
+POST  http://127.0.0.1:8000/api/guardar-dictamen
+Accept: application/json
+Content-Type: application/json
+
+{
+    "dictamen_id": 156,
+    "transferencia_id": 169,
+    "componente_id": 15,
+    "monto_aporte_local": 15,
+    "monto_cofinanciamiento": 15,
+    "monto_finan_externo": 15,
+    "monto_otros": 15 
+   
+}
+
 ### modificar componente
 POST  http://127.0.0.1:8000/api/modificar-componente/144
 Accept: application/json
@@ -133,6 +165,20 @@ Content-Type: application/json
 {
     "transferencia_id": 144,
     "componente_id": 1,
+    "monto_aporte_local": 2,
+    "monto_cofinanciamiento": 2,
+    "monto_finan_externo": 2,
+    "monto_otros": 2 
+   
+}
+
+### modificar formulario costo
+POST  http://127.0.0.1:8000/api/modificar-formulario-costo/169
+Accept: application/json
+Content-Type: application/json
+
+{
+    "componente_id": 3,
     "monto_aporte_local": 2,
     "monto_cofinanciamiento": 2,
     "monto_finan_externo": 2,
@@ -151,6 +197,44 @@ GET http://127.0.0.1:8000/api/poblacion
 Accept: application/json
 Content-Type: application/json
 
+### Listar clasificador
+GET http://127.0.0.1:8000/api/listar-clasificador
+Accept: application/json
+Content-Type: application/json
+
+### Listar plan programa
+GET http://127.0.0.1:8000/api/plan-programa
+Accept: application/json
+Content-Type: application/json
+
+### guardar plan programa
+POST  http://127.0.0.1:8000/api/guardar-plan-programa
+Accept: application/json
+Content-Type: application/json
+
+{
+    "clasificador": "clasifi",
+    "descripcion": "descripion",
+    "tipo_clasificador_id": 1
+}
+
+### modificar plan programa
+POST  http://127.0.0.1:8000/api/modificar-plan-programa/152
+Accept: application/json
+Content-Type: application/json
+
+{
+    "clasificador": "claasddadadsifi",
+    "descripcion": "descripion",
+    "tipo_clasificador_id": 1
+}
+
+### eliminar plan programa
+POST  http://127.0.0.1:8000/api/eliminar-plan-programa/145
+Accept: application/json
+Content-Type: application/json
+
+
 ### poblacion
 GET http://127.0.0.1:8000/api/poblacion/1
 Accept: application/json
@@ -168,12 +252,17 @@ Content-Type: application/json
 
 
 ### listar  verificar-formulario
-GET http://127.0.0.1:8000/api/verificar-formulario/144
+GET http://127.0.0.1:8000/api/verificar-formulario/169
 Accept: application/json
 Content-Type: application/json
 
 ### listar formulario verificar-formulario
 GET http://127.0.0.1:8000/api/dictamen-listar/94
+Accept: application/json
+Content-Type: application/json
+
+### listar formulario todo
+GET http://127.0.0.1:8000/api/dictamen-listar-todo
 Accept: application/json
 Content-Type: application/json
 
@@ -185,6 +274,16 @@ Content-Type: application/json
 
 ### mostrar formulario
 GET http://127.0.0.1:8000/api/dictamen-mostrar/145
+Accept: application/json
+Content-Type: application/json
+
+### mostrar formulario editar fecha
+GET http://127.0.0.1:8000/api/dictamen-mostrar-fecha/152
+Accept: application/json
+Content-Type: application/json
+
+### listar formulario costo
+GET http://127.0.0.1:8000/api/listar-formulario-costo/169
 Accept: application/json
 Content-Type: application/json
 

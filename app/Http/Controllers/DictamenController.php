@@ -64,7 +64,7 @@ class DictamenController extends Controller
     }
 
     public function funListarFormularioComponenteId($id){
-        $componente = DB::select("select tdc.transferencia_id,tdc.componente_id,tdc.monto_aporte_local,tdc.monto_cofinanciamiento,tdc.monto_finan_externo,tdc.monto_otros,
+        $componente = DB::select("select tdc.dictamen_id,tdc.transferencia_id,tdc.componente_id,tdc.monto_aporte_local,tdc.monto_cofinanciamiento,tdc.monto_finan_externo,tdc.monto_otros,
 (select c.componente from clasificadores.componente c where c.id=tdc.componente_id)as componente
 from transferencia.transferencias_dictamen_costos tdc where tdc.vigente=true and tdc.transferencia_id=$id");
         return response()->json($componente, 200);
@@ -109,6 +109,17 @@ from transferencia.transferencias_dictamen_costos tdc where tdc.vigente=true and
         $monto_cofinanciamiento = $request->monto_cofinanciamiento;
         $monto_finan_externo = $request->monto_finan_externo;
         $monto_otros = $request->monto_otros;
+/*
+        DB::select('INSERT INTO transferencia.transferencias_dictamen_costos
+(dictamen_id, transferencia_id, componente_id, monto_aporte_local, monto_cofinanciamiento, monto_finan_externo, monto_otros,vigente)
+VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
+            $dictamen_id, $transferencia_id, $componente_id, 
+            $monto_aporte_local, $monto_cofinanciamiento, 
+            $monto_finan_externo, $monto_otros, 
+            true
+        ]
+    );
+*/
         DB::select('
                 SELECT * FROM transferencia.transferencias_formulario_componente(
                     ?::integer, ?::integer, 2, ?::integer, 
@@ -123,6 +134,22 @@ from transferencia.transferencias_dictamen_costos tdc where tdc.vigente=true and
             );
 
         return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
+    public function funModificarFormularioCosto($id,Request $request){
+       
+        $componente_id = $request->componente_id;
+        $monto_aporte_local= $request->monto_aporte_local;
+        $monto_cofinanciamiento = $request->monto_cofinanciamiento;
+        $monto_finan_externo = $request->monto_finan_externo;
+        $monto_otros = $request->monto_otros;
+        DB::select("UPDATE transferencia.transferencias_dictamen_costos
+                        SET monto_aporte_local=$monto_aporte_local,
+                        monto_cofinanciamiento=$monto_cofinanciamiento, monto_finan_externo=$monto_finan_externo, monto_otros=$monto_otros 
+                        where transferencia_id = $id  and componente_id = $componente_id and vigente=true
+                    ");
+
+        return response()->json(["message" => "Datos actualizados correctamente"]);
     }
 
     public function funCerrarFormularioCosto(Request $request){

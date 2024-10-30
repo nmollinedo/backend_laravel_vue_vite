@@ -58,9 +58,10 @@ Route::get('/plan',[PlanController::class,"funListarPlan"]);
 Route::get('/listar-clasificador',[PlanController::class,"funListarTipoClasificador"]);
 Route::post('/guardar-plan-programa',[ProgramaController::class,"funGuardarPlanPrograma"]);
 Route::post('/modificar-plan-programa/{id}',[ProgramaController::class,"funModificarPlanPrograma"]);
-Route::post('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
+Route::delete('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
 Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
+//Route::get('/editar-plan-programa',[ProgramaController::class,"funEditarPlanPrograma"]);
 Route::get('/componente',[ComponenteController::class,"funListarComponente"]);
 Route::get('/componente/{id}',[ComponenteController::class,"funListarComponenteId"]);
 Route::post('/componente',[ComponenteController::class,"funGuardarComponente"]);
@@ -82,12 +83,13 @@ Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormul
 Route::get('/dictamen-mostrar-fecha/{id}',[DictamenController::class,"funMostrarEditFecha"]);
 Route::post('/guardar-dictamen',[DictamenController::class,"funGuardarDictamen"]);
 Route::delete('/eliminar-dictamen-costo/{transferencia_id}/{componente_id}',[DictamenController::class,"funEliminarDictamenCosto"]);
-Route::post('/guardar-formulario-componente',[DictamenController::class,"funGuardarFormularioComponenteCosto"]);
+Route::post('/guardar-formulario-costo',[DictamenController::class,"funGuardarFormularioComponenteCosto"]);
 
 Route::delete('/dictamen-eliminar/{id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);
 Route::post('/cerrar-formulario-costo',[DictamenController::class,"funCerrarFormularioCosto"]); 
-Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funListarTipoDictamen   funEliminarCierre filtarTrasferencias 
+Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funModificarFormularioCosto
+Route::post('/modificar-formulario-costo/{id}',[DictamenController::class,"funModificarFormularioCosto"]);
 Route::post('/modificar-dictamen-fecha/{id}',[DictamenController::class,"funGuardarFecha"]);
 Route::post('/modificar-edit-fecha/{id}',[DictamenController::class,"funGuardarEditFecha"]);
 Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierre"]);

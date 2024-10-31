@@ -270,6 +270,29 @@ public function funGuardarLocalizacion($id, Request $request)
 }
 
 
+public function funGuardarLocalizacionPunto($id, Request $request)
+{
+        $latitud = $request->latitud;
+        $longitud = $request->longitud;
+    // Usar consultas preparadas para evitar inyección SQL
+    DB::table('transferencia.transferencias')
+        ->where('id', $id)
+        ->update([
+            'latitud' => $latitud,
+            'longitud' => $longitud,
+            ]);
+
+    // Respuesta JSON
+    return response()->json(["message" => "Datos guardados correctamente"]);
+}
+
+
+public function listarPunto(string $id)
+    {
+        $transferencia = DB::select("select latitud,longitud from transferencia.transferencias where transferencia.transferencias.id =$id");
+        return response()->json($transferencia, 200);
+    }
+
 
   /**
      * Buscar transferencia por id .

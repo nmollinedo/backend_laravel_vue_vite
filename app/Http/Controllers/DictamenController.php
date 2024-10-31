@@ -33,7 +33,7 @@ class DictamenController extends Controller
         $formulario = DB::select("SELECT id, dictamen_id,transferencia_id, ear_ee_id, etapa_id,tipo_dictamen_id,(select td.descrip_tipo_dictamen from clasificadores.tipo_dictamen td where td.id = tipo_dictamen_id) as tipo_dictamen, fecha_dictamen, tipo_cambio_costos_id, tipo_justificacion_id, justificacion, moneda_id, gestion_registro, informe_tecnico, informe_tecnico_fecha, informe_legal, informe_legal_fecha, resolucion, resolucion_fecha, mae, mae_cargo, mae_ci, mae_documento_designacion, responsable,
         responsable_ci, responsable_cargo, responsable_unidad, proyecto_fecha_inicio, proyecto_fecha_fin, etapa_fecha_inicio, etapa_fecha_fin, usuario_id, fecha_registro, usuario_modificacion_id, 
         fecha_modificacion, cierre_entidad, usuario_cierre_id, fecha_cierre_dictamen, con_archivo, ruta_archivo, usuario_archivo_id, fecha_archivo, version_id,(select t.bloqueo_proyecto from transferencia.transferencias t where t.id=$id)
-        FROM transferencia.dictamenes where estado_id=1 and transferencia_id=$id");
+        FROM transferencia.dictamenes where estado_id=1 and transferencia_id=$id order by id desc");
         return response()->json($formulario, 200);
  
     }
@@ -546,7 +546,7 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
 
         $dictamen_id = $id;
         $transferencia_id =$request->transferencia_id;
-        $tipo_dictamen_id = $request->etapa;  // Usando $request->etapa
+        $tipo_dictamen_id = $request->tipo_dictamen_id;  // Usando $request->etapa
         $fecha_dictamen = $request->fecha_registro;
         $fecha_inicio = $request->fecha_inicio;
         $fecha_termino = $request->fecha_termino;

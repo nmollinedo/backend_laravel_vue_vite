@@ -30,7 +30,8 @@ class EntidadController extends Controller
      * )
      */
     public function funListar(){
-        $producto = DB::select("select * from clasificadores.instituciones i where i.codigo_presupuestario <> '-'");
+        $producto = DB::select("select i.id ,i.codigo_presupuestario || '-' || i.nombre AS nombre,i.codigo_presupuestario ,i.estado_id ,i.usuario_id ,i.sigla, i.institucion_padre_id ,i.tipo_entidad_id 
+		from clasificadores.instituciones i where i.codigo_presupuestario <> '-' and i.estado_id = 1");
         return response()->json($producto, 200);
         /*return response()->json([
             "status" => true,

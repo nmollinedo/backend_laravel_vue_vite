@@ -1,11 +1,21 @@
 ### plan
-GET http://127.0.0.1:8000/api/plan/29
+GET http://127.0.0.1:8000/api/plan
+Accept: application/json
+Content-Type: application/json
+
+### listar plan
+GET http://127.0.0.1:8000/api/plan/2
 Accept: application/json
 Content-Type: application/json
 
 
 ### programa
 GET http://127.0.0.1:8000/api/programa/1
+Accept: application/json
+Content-Type: application/json
+
+### listar programa
+GET http://127.0.0.1:8000/api/programa/2/1
 Accept: application/json
 Content-Type: application/json
 
@@ -41,17 +51,19 @@ Content-Type: application/json
 
 
 ### guardar localizazion
-POST   http://127.0.0.1:8000/api/guardar-localizacion/58
+POST   http://127.0.0.1:8000/api/guardar-localizacion-punto/172
 Accept: application/json
 Content-Type: application/json
 
 {
-    "departamento_id": 1,
-    "municipio_id": 1,
-    "poblacion_id": 1,
-    "cobertura": 1,
-    "poblacion": 1
+    "longitud": -62.2555,
+    "latitud": -77.012524
 }
+
+### listar punto
+GET http://127.0.0.1:8000/api/listar-punto/172
+Accept: application/json
+Content-Type: application/json
 
 
 ### Activar cierre

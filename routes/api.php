@@ -108,6 +108,8 @@ Route::get('/cierre-formulario/{id}',[TransferenciaController::class,"funCierreF
 Route::get('/modificacion-problematica/{id}',[TransferenciaController::class,"funModificarProblematica"]);
 Route::post('/guardar-problematica/{id}',[TransferenciaController::class,"funGuardarProblematica"]); 
 Route::post('/guardar-localizacion/{id}',[TransferenciaController::class,"funGuardarLocalizacion"]); 
+Route::post('/guardar-localizacion-punto/{id}',[TransferenciaController::class,"funGuardarLocalizacionPunto"]);
+Route::get('/listar-punto/{id}',[TransferenciaController::class,"listarPunto"]);
 Route::post("/registrar-transferencia", [TransferenciaController::class, "funGuardar"]);
 Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
 Route::get("/no-autorizado", function (){

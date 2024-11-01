@@ -122,6 +122,10 @@ Accept: application/json
 GET  http://127.0.0.1:8000/api/area
 Accept: application/json
 
+### buscar trasferencia
+GET  http://127.0.0.1:8000/api/reporte
+Accept: application/json
+
 
 ### guardar actualizacion transferencia
 

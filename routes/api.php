@@ -18,6 +18,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TipoDictamenController;
 use App\Http\Controllers\TransferenciaController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ReporteController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -112,6 +113,9 @@ Route::post('/guardar-localizacion-punto/{id}',[TransferenciaController::class,"
 Route::get('/listar-punto/{id}',[TransferenciaController::class,"listarPunto"]);
 Route::post("/registrar-transferencia", [TransferenciaController::class, "funGuardar"]);
 Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
+
+
+Route::get('/reporte',[ReporteController::class,"funReporte"]);
 Route::get("/no-autorizado", function (){
     return response()->json(["message" => "No esta autorizado para ver esta pagina"], 401);
 })->name("login");

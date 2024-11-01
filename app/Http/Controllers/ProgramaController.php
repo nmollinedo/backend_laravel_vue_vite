@@ -36,10 +36,10 @@ class ProgramaController extends Controller
     }
 
     public function funListarPrograma2($entidad_id,$clasificador_id){
-        $programa = DB::select("select rc.rel_clasificador ,rc.cod_clasificador ,rc.cod_clasificador_dependiente ,ec.cod_entidad ,c.id ,c.clasificador ,c.descripcion ,c.tipo_clasificador_id 
+        $programa = DB::select("select rc.rel_clasificador ,rc.cod_clasificador ,rc.cod_clasificador_dependiente ,ec.entidad_id ,c.id ,c.clasificador ,c.descripcion ,c.tipo_clasificador_id 
                                 from transferencia.rel_clasificador rc, clasificadores.entidad_clasificador ec,clasificadores.clasificador c 
                                 where rc.rel_clasificador = ec.rel_clasificador and c.id = rc.cod_clasificador_dependiente 
-                                and ec.cod_entidad = $entidad_id
+                                and ec.entidad_id = $entidad_id
                                 and rc.vigente = 1
                                 and rc.cod_clasificador = $clasificador_id");
         return response()->json($programa, 200);

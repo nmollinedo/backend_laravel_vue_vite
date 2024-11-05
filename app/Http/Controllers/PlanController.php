@@ -30,7 +30,9 @@ class PlanController extends Controller
      * )
      */
     public function funListarPlan(){
-        $plan = DB::select('select * from clasificadores.planes');
+        $plan = DB::select("select 'plan',c.id ,c.clasificador,c.descripcion from clasificadores.clasificador c 
+                            where c.tipo_clasificador_id = 1
+                            order by c.id desc");
         return response()->json($plan, 200);
         /*return response()->json([
             "status" => true,
@@ -41,7 +43,7 @@ class PlanController extends Controller
     }
 
     public function funListarPlan2($id){
-        $plan = DB::select("select ec.entidad_id,ec.rel_clasificador,ec.vigente,c.id ,c.clasificador,c.tipo_clasificador_id 
+        $plan = DB::select("select ec.entidad_id,ec.rel_clasificador,ec.vigente,c.id ,c.clasificador as descrip_plan,c.tipo_clasificador_id 
                             from clasificadores.entidad_clasificador ec,clasificadores.clasificador c
                             where ec.vigente=1 and ec.entidad_id=$id 
                             and ec.rel_clasificador = c.id 

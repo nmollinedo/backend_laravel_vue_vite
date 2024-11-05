@@ -153,14 +153,45 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
     }
 
     public function funCerrarFormularioCosto(Request $request){
-        $dictamen_id = $request->dictamen_id;
+        $id = $request->id;
         $transferencia_id = $request->transferencia_id;
       
         DB::select('
                 SELECT * FROM transferencia.cerrar_formulario_costo(
                     ?::integer, ?::integer
                 )', [
-                    $dictamen_id, $transferencia_id
+                    $id, $transferencia_id
+                ]
+            );
+
+        return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
+
+    public function funCerrarFormularioCostoFecha(Request $request){
+        $id = $request->id;
+        $transferencia_id = $request->transferencia_id;
+      
+        DB::select('
+                SELECT * FROM transferencia.cerrar_formulario_costo_fecha(
+                    ?::integer, ?::integer
+                )', [
+                    $id, $transferencia_id
+                ]
+            );
+
+        return response()->json(["message" => "Datos guardados correctamente"]);
+    }
+
+    public function funCerrarFormularioFecha(Request $request){
+        $id = $request->id;
+        $transferencia_id = $request->transferencia_id;
+      
+        DB::select('
+                SELECT * FROM transferencia.cerrar_formulario_fecha(
+                    ?::integer, ?::integer
+                )', [
+                    $id, $transferencia_id
                 ]
             );
 
@@ -362,9 +393,27 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
     }
 
     public function funMostrarFormulario($id){
-        $formulario = DB::select("select * from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.dictamen_id =$id");
+    /*    $formulario = DB::select("select d.id,d.dictamen_id,d.transferencia_id,d.ear_ee_id,d.etapa_id,d.tipo_dictamen_id,d.fecha_dictamen,d.tipo_justificacion_id,d.justificacion,d.informe_tecnico,d.informe_tecnico_fecha,
+                        d.informe_tecnico_fecha,d.informe_legal ,d.informe_legal ,d.informe_legal_fecha ,d.resolucion ,d.resolucion_fecha ,d.mae ,d.mae_cargo,d.mae_ci ,d.mae_documento_designacion ,d.responsable ,
+                        d.responsable_ci , d.responsable_cargo ,d.responsable_unidad ,d.proyecto_fecha_inicio ,d.proyecto_fecha_fin ,d.fecha_registro ,dr.pregunta_1 ,dr.pregunta_2 ,dr.pregunta_3 ,
+                        dr.respaldo_pregunta_3 ,dr.fecha_pregunta_3 ,dr.pregunta_4 ,dr.respaldo_pregunta_4 ,dr.fecha_pregunta_4 ,dr.pregunta_5 ,dr.respaldo_pregunta_5 ,dr.fecha_pregunta_5 ,
+                        dr.pregunta_6 ,dr.respaldo_pregunta_6 ,dr.fecha_pregunta_6 ,dr.nombre_original ,dr.descripcion_problema ,dr.descripcion_solucion 
+                        from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.cierre_entidad=0 and d.dictamen_id =$id");*/
+                        $formulario = DB::select("select * 
+                        from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.dictamen_id =$id");                
         return response()->json($formulario, 200);
     }
+
+    public function funMostrarFormularioEdit($id){
+            $formulario = DB::select("select d.id,d.dictamen_id,d.transferencia_id,d.ear_ee_id,d.etapa_id,d.tipo_dictamen_id,d.fecha_dictamen,d.tipo_justificacion_id,d.justificacion,d.informe_tecnico,d.informe_tecnico_fecha,
+                            d.informe_tecnico_fecha,d.informe_legal ,d.informe_legal ,d.informe_legal_fecha ,d.resolucion ,d.resolucion_fecha ,d.mae ,d.mae_cargo,d.mae_ci ,d.mae_documento_designacion ,d.responsable ,
+                            d.responsable_ci , d.responsable_cargo ,d.responsable_unidad ,d.proyecto_fecha_inicio ,d.proyecto_fecha_fin ,d.fecha_registro ,dr.pregunta_1 ,dr.pregunta_2 ,dr.pregunta_3 ,
+                            dr.respaldo_pregunta_3 ,dr.fecha_pregunta_3 ,dr.pregunta_4 ,dr.respaldo_pregunta_4 ,dr.fecha_pregunta_4 ,dr.pregunta_5 ,dr.respaldo_pregunta_5 ,dr.fecha_pregunta_5 ,
+                            dr.pregunta_6 ,dr.respaldo_pregunta_6 ,dr.fecha_pregunta_6 ,dr.nombre_original ,dr.descripcion_problema ,dr.descripcion_solucion 
+                            from transferencia.dictamenes_registros dr, transferencia.dictamenes d where dr.id = d.dictamen_id and d.cierre_entidad=0 and d.dictamen_id =$id");
+                                           
+            return response()->json($formulario, 200);
+        }
 
     public function funMostrarEditFecha($id){
         $formulario = DB::select("select d.id ,d.dictamen_id ,d.transferencia_id ,d.tipo_dictamen_id,d.cierre_entidad, d.fecha_dictamen ,d.fecha_registro ,d.proyecto_fecha_inicio ,d.proyecto_fecha_fin,d.estado_id,
@@ -529,6 +578,104 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
  ]);
     return response()->json(["message" => "Formulario modificado"]);
     }
+
+
+    public function funGuardarModCostoFecha($id,Request $request){
+       
+
+        $dictamen_id = $id;
+        $transferencia_id =$request->transferencia_id;
+        $tipo_dictamen_id = $request->tipo_dictamen_id;  // Usando $request->etapa
+        $fecha_dictamen = $request->fecha_registro;
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_termino = $request->fecha_termino;
+        $preguntas1 = $request->pregunta_1;
+        $preguntas2 = $request->pregunta_2;
+        $preguntas3 = $request->pregunta_3;
+        $respaldo_preguntas_3 = $request->respaldo_pregunta_3;
+        $fecha_preguntas_3 = $request->fecha_pregunta_3;
+        $preguntas4 = $request->pregunta_4;
+        $respaldo_preguntas_4 = $request->respaldo_pregunta_4;
+        $fecha_preguntas_4 = $request->fecha_pregunta_4;
+        $preguntas5 = $request->pregunta_5;
+        $respaldo_preguntas_5 = $request->respaldo_pregunta_5;
+        $fecha_preguntas_5 = $request->fecha_pregunta_5;
+        $preguntas6 = $request->pregunta_6;
+        $respaldo_preguntas_6 = $request->respaldo_pregunta_6;
+        $fecha_preguntas_6 = $request->fecha_pregunta_6;
+        $mae = $request->mae;
+        $mae_cargo = $request->mae_cargo;
+        $mae_ci = $request->mae_ci;
+        $mae_documento_designacion = $request->mae_documento_designacion;
+        $responsable = $request->responsable;
+        $responsable_ci = $request->responsable_ci;
+        $responsable_cargo = $request->responsable_cargo;
+        $responsable_unidad = $request->responsable_unidad;
+
+
+        // Llamada a la segunda función con el dictamen_id recuperado
+        DB::select("
+        SELECT transferencia.dictamen_insert(
+        ?::integer,
+        ?::integer,
+        1::integer, 
+        1::integer, 
+        ?::integer,
+        ?::date,
+        1::integer,
+        1::integer,
+        'tareas'::varchar,
+        1::integer,
+        1212::integer,
+        '121212'::varchar, 
+        '18/09/2024'::date, 
+        '1212'::varchar, 
+        '18/09/2024'::date,
+        '1212'::varchar, 
+        '18/09/2024'::date, 
+        ?::varchar, 
+        ?::varchar, 
+        ?::varchar, 
+        ?::varchar,
+        ?::varchar,
+        ?::varchar, 
+        ?::varchar,
+        ?::varchar,
+        ?::date,
+        ?::date, 
+        '11/09/2024'::date, 
+        '11/09/2024'::date,
+        1::integer, 
+        '11/09/2024'::date,
+        1::integer, 
+        '11/09/2024'::date, 
+        1::integer,
+        1::integer,
+        '11/09/2024'::date,
+        1::integer,
+        '1'::varchar, 
+        1::integer, 
+        '11/09/2024'::date, 
+        1::integer, 
+        'M103'::varchar)
+        ", [
+        $dictamen_id,  // Usar el dictamen_id recuperado
+        $transferencia_id,
+        $tipo_dictamen_id,
+        $fecha_dictamen,
+        $mae,
+        $mae_cargo,
+        $mae_ci,
+        $mae_documento_designacion,
+        $responsable,
+        $responsable_ci,
+        $responsable_cargo,
+        $responsable_unidad,
+        $fecha_inicio,
+        $fecha_termino
+        ]);
+        return response()->json(["message" => "Formulario modificado"]);
+        }
 
     public function funGuardarFecha($id,Request $request){
         // Validar los datos recibidos
@@ -760,15 +907,13 @@ VALUES(?, ?, ?, ? , ?, ?, ?, ?)', [
         public function funEliminarCierre($id,Request $request)
         {   $transferencia_id = $request->transferencia_id;
             $valor=$transferencia_id;
-            $formulario = DB::select("
-            delete from transferencia.dictamenes  where transferencia.dictamenes.dictamen_id = $id
-             ");
-             $formulario = DB::select("
+            $formulario = DB::select("SELECT transferencia.eliminar_formulario($id::integer, $valor::integer); ");
+          /*   $formulario = DB::select("
             delete from transferencia.dictamenes_registros  where transferencia.dictamenes_registros.id = $id
              ");
              $formulario = DB::select("
             update transferencia.transferencias  set estado_id = 1 where transferencia.transferencias.id = $valor
-             ");
+             ");*/
              return response()->json(["message" => "Cierre Formulario eliminado"]);
         }    
     

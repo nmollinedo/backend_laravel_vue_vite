@@ -62,7 +62,7 @@ Route::post('/guardar-plan-programa',[ProgramaController::class,"funGuardarPlanP
 Route::post('/modificar-plan-programa/{id}',[ProgramaController::class,"funModificarPlanPrograma"]);
 Route::delete('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
-Route::get('/programa/{entidad_id}/{clasificador_id}',[ProgramaController::class,"funListarPrograma2"]);
+Route::get('/listar-programa/{entidad_id}/{clasificador_id}',[ProgramaController::class,"funListarPrograma2"]);
 Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
 //Route::get('/editar-plan-programa',[ProgramaController::class,"funEditarPlanPrograma"]);
 Route::get('/componente',[ComponenteController::class,"funListarComponente"]);
@@ -83,6 +83,7 @@ Route::get('/listar-tipo2',[TipoDictamenController::class,"funListarTipoDictamen
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
 Route::get('/dictamen-listar-todo',[DictamenController::class,"funListarFormularioTodo"]);
 Route::get('/dictamen-mostrar/{id}',[DictamenController::class,"funMostrarFormulario"]);
+Route::get('/dictamen-mostrar-edit/{id}',[DictamenController::class,"funMostrarFormularioEdit"]);
 Route::get('/dictamen-mostrar-fecha/{id}',[DictamenController::class,"funMostrarEditFecha"]);
 Route::post('/guardar-dictamen',[DictamenController::class,"funGuardarDictamen"]);
 Route::delete('/eliminar-dictamen-costo/{transferencia_id}/{componente_id}',[DictamenController::class,"funEliminarDictamenCosto"]);
@@ -91,9 +92,12 @@ Route::post('/guardar-formulario-costo',[DictamenController::class,"funGuardarFo
 Route::delete('/dictamen-eliminar/{id}/{transferencia_id}',[DictamenController::class,"funEliminarFormulario"]);
 Route::post('/guardar-dictamen/{id}',[DictamenController::class,"funGuardarFormulario"]);
 Route::post('/cerrar-formulario-costo',[DictamenController::class,"funCerrarFormularioCosto"]); 
+Route::post('/cerrar-formulario-costo-fecha',[DictamenController::class,"funCerrarFormularioCostoFecha"]); 
+Route::post('/cerrar-formulario-fecha',[DictamenController::class,"funCerrarFormularioFecha"]);
 Route::post('/modificar-dictamen/{id}',[DictamenController::class,"funGuardarModificacion"]);  //funModificarFormularioCosto
 Route::post('/modificar-formulario-costo/{id}',[DictamenController::class,"funModificarFormularioCosto"]);
 Route::post('/modificar-dictamen-fecha/{id}',[DictamenController::class,"funGuardarFecha"]);
+Route::post('/modificar-dictamen-costo-fecha/{id}',[DictamenController::class,"funGuardarModCostoFecha"]);
 Route::post('/modificar-edit-fecha/{id}',[DictamenController::class,"funGuardarEditFecha"]);
 Route::post('/eliminar-cierre/{id}',[DictamenController::class,"funEliminarCierre"]);
 Route::get('/verificar-formulario/{id}',[DictamenController::class,"funVerificarFormularioActivo"]);
@@ -115,7 +119,7 @@ Route::post("/registrar-transferencia", [TransferenciaController::class, "funGua
 Route::post("/modificar-transferencia/{id}", [TransferenciaController::class, "funModificarTransferencia"]);
 
 
-Route::get('/reporte',[ReporteController::class,"funReporte"]);
+Route::get('/reporte/{id}',[ReporteController::class,"funReporte"]);
 Route::get("/no-autorizado", function (){
     return response()->json(["message" => "No esta autorizado para ver esta pagina"], 401);
 })->name("login");

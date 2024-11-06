@@ -57,6 +57,17 @@ class ProgramaController extends Controller
         return response()->json($programa, 200);
       
     }
+
+
+    public function funRelPlanPrograma($id){
+        $programa = DB::select("select rc.rel_clasificador,rc.cod_clasificador,rc.cod_clasificador_dependiente, rc.vigente ,c.clasificador ,c.descripcion 
+                                from transferencia.rel_clasificador rc, clasificadores.clasificador c 
+                                where rc.cod_clasificador = $id
+                                and c.id = rc.cod_clasificador_dependiente 
+                                and rc.vigente = 1");
+        return response()->json($programa, 200);
+      
+    }
     
 
  

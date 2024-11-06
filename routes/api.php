@@ -62,7 +62,9 @@ Route::post('/guardar-plan-programa',[ProgramaController::class,"funGuardarPlanP
 Route::post('/guardar-planes-programas',[ProgramaController::class,"funGuardarPlanProgramas"]);
 Route::post('/modificar-plan-programa/{id}',[ProgramaController::class,"funModificarPlanPrograma"]);
 Route::delete('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
-Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
+Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);   //funRelPlanPrograma
+
+Route::get('/rel-plan-programa/{id}',[ProgramaController::class,"funRelPlanPrograma"]);
 Route::get('/listar-programa/{entidad_id}/{clasificador_id}',[ProgramaController::class,"funListarPrograma2"]);
 Route::get('/plan-programa',[ProgramaController::class,"funListarPlanPrograma"]);
 //Route::get('/editar-plan-programa',[ProgramaController::class,"funEditarPlanPrograma"]);

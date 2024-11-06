@@ -59,6 +59,7 @@ Route::get('/plan',[PlanController::class,"funListarPlan"]);
 Route::get('/plan/{id}',[PlanController::class,"funListarPlan2"]);
 Route::get('/listar-clasificador',[PlanController::class,"funListarTipoClasificador"]);
 Route::post('/guardar-plan-programa',[ProgramaController::class,"funGuardarPlanPrograma"]);
+Route::post('/guardar-planes-programas',[ProgramaController::class,"funGuardarPlanProgramas"]);
 Route::post('/modificar-plan-programa/{id}',[ProgramaController::class,"funModificarPlanPrograma"]);
 Route::delete('/eliminar-plan-programa/{id}',[ProgramaController::class,"funEliminarPlanPrograma"]);
 Route::get('/programa/{id}',[ProgramaController::class,"funListarPrograma"]);
@@ -78,7 +79,7 @@ Route::get('/municipio/{id}',[MunicipioController::class,"funListarMunicipioDpto
 Route::get('/poblacion',[PoblacionController::class,"funListarPoblacion"]);
 Route::get('/poblacion/{id}',[PoblacionController::class,"funListarPoblacionMuni"]);
 
-Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2  modificar-edit-fecha
+Route::get('/listar-tipo',[TipoDictamenController::class,"funListarTipoDictamen"]); //funListarTipoDictamen2 
 Route::get('/listar-tipo2',[TipoDictamenController::class,"funListarTipoDictamen2"]);
 Route::get('/dictamen-listar/{id}',[DictamenController::class,"funListarFormulario"]);
 Route::get('/dictamen-listar-todo',[DictamenController::class,"funListarFormularioTodo"]);

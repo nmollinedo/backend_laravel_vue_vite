@@ -69,6 +69,15 @@ class ProgramaController extends Controller
         VALUES( ?, ?, ?, 1, 0, 0)",[$clasificador,$descripcion,$tipo_clasificador_id]);
         return response()->json(["message" => "Plan programa registrado correctamente"]);
     }
+
+    public function funGuardarPlanProgramas(Request $request){
+        $clasificador_plan = $request->clasificador_plan;
+        $clasificador_programa = $request->clasificador_programa;
+    
+        DB::insert("SELECT transferencia.registrar_plan_programa(?::integer, ?::integer);",[$clasificador_plan,$clasificador_programa]);
+        return response()->json(["message" => "Plan programa registrado correctamente"]);
+    }
+
     public function funMostrar($identificador){
         
     }

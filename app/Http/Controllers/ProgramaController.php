@@ -110,4 +110,13 @@ class ProgramaController extends Controller
                     ");
         return response()->json(["message" => "Plan programa eliminado correctamente"]);
     }
+
+    public function funEliminarRelPlanPrograma($id){
+   
+        DB::select("UPDATE transferencia.rel_clasificador
+                    SET vigente=0
+                    WHERE rel_clasificador=$id
+                    ");
+        return response()->json(["message" => "Plan programa eliminado correctamente"]);
+    }
 }
